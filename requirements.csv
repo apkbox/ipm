@@ -1,0 +1,35 @@
+Priority,Area,As a user I want…,…so that,Comment
+1,Account management,To use multiple investment accounts,I can manage multiple portfolios with different objectives and tax requirements,
+2,Account management,To contribute and deduct cash from/to the investment portfolio,I can contribute and track cash on the account,
+3,Account management,to be able to specify account currency,,
+4,Account management,to be able to specify account secondary currency,,
+,,,,
+1,Transactions,to be able to enter buy and sell transactions,,
+1,Transactions,to be able to enter dividend transactions,,
+3,Transactions,to be able to enter reinvestment transactions,,
+4,Transactions,to be able to enter account/management fee transactions,,
+4,Transactions,to be able to enter reimbursment transactions,,
+4,Transactions,to be able to enter share donation transactions,,This could be just a case of flag that indicates whether the transaction is cash linked
+4,Transactions,to be able to enter asset switch transaction,I can handle switch between mutual funds ,
+1,Transactions,"For buy and sell transactions to specify transaction date, settlement date, asset name, price, quantity, comission",,
+3,Transactions,For buy and sell transactions to be able to override total cost,,
+3,Transactions,"For dividend transaction to specify transaction date, asset name, amount",,
+3,Transactions,"For reinvestment transaction to specify date, asset name, price, quantity, amount",,
+4,Transactions,For account/management fee to specify date and amount,,
+1,Transactions,To be able to flag transactions as not affecting the balance,I can exclude a  trading fee reimbursment transaction from  the balance,Is this always the case that trading fee is included into the settlement price?
+1,Balance,To be able to see book cost,,
+2,Balance,To be able to see the intraday balance ,,
+2,Balance,To be able to see the previous day balance,,
+1,Balance,To be able to see the balance for the day last time quotes were updated,,
+2,Balance,To see balance for each asset individually,,
+,,,,
+2,Performance,"To be able to see intraday, previous day and last updated changes as percentage and currency amount",,
+1,Performance,To be able to see difference against book cost as percentagle and currency amount,,Appreciation only
+1,Performance,To be able to see real return as percentage and currency amount,,Payed dividends vs book cost
+1,Performance,To be able to see current yield as percentage and currency amount,,currently recorded dividends + appreciation + transaction costs + management fee vs book cost
+1,Performance,To be able to see projected yield,,Taking into account reported dividend returns and management fees before any dividend and management fee transactions took place
+1,Performance,To be able to see yield at would be sell time,,"same as current yield but also includes sell transaction costs, thus actual cash amount that is received throught the life of the asset"
+2,Performance,To be able to see yield for each asset individually,I can evaluate return on depreciating asset,
+1,Other,Import transactions from CSV,I can quickly and reliably update transactions,
+2,Other,To specify columns in CSV that match fields in DB,I can use different transaction history sources,
+2,Other,To be able to simulate asset transaction,I can see peek projected performance characteristics before acquisition,
