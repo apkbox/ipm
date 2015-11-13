@@ -46,7 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountTransaction.cs" />
+    <Compile Include="BuySellTransaction.cs" />
+    <Compile Include="AccountModel.cs" />
+    <Compile Include="AssetModel.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="CurrencyCode.cs" />
+    <Compile Include="PortfolioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionHistory.cs" />
+    <Compile Include="TransactionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
