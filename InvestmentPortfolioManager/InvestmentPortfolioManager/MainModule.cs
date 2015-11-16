@@ -8,11 +8,15 @@
 // --------------------------------------------------------------------------------
 namespace InvestmentPortfolioManager
 {
+    using InvestmentPortfolioManager.Views;
+
     using Microsoft.Practices.Unity;
 
     using Prism.Modularity;
     using Prism.Regions;
 
+    [Module(ModuleName = "MainModule")]
+    [ModuleDependency("Models")]
     public class MainModule : IModule
     {
         #region Fields

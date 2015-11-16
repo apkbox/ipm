@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="InvestmentPortfolioManager.Views.PortfolioSummaryView" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:vm="clr-namespace:InvestmentPortfolioManager.ViewModels"
+             xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:oxyPlot="clr-namespace:OxyPlot;assembly=OxyPlot"
+             mc:Ignorable="d" 
+             d:DesignHeight="528" d:DesignWidth="909"
+             d:DataContext="{d:DesignInstance vm:PortfolioSummaryViewModel}"
+             mvvm:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="89*"/>
+            <RowDefinition Height="149*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="0,10" Text="Portfolio Name" FontSize="24" HorizontalAlignment="Center" Width="162"/>
+
+        <oxy:PlotView Grid.Row="1" Margin="10">
+        </oxy:PlotView>
+        <xcdg:DataGridControl Margin="10" Grid.Row="2" ItemsSource="{Binding Accounts[0]}">
+        </xcdg:DataGridControl>
+
+    </Grid>
+</UserControl>
