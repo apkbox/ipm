@@ -32,12 +32,20 @@ namespace Ipm.DataModel
 
         public virtual DbSet<CashTransaction> CashTransactions { get; set; }
 
-        public virtual DbSet<InvestmentAccount> InvestmentAccounts { get; set; }
+        public virtual DbSet<Account> InvestmentAccounts { get; set; }
 
-        public virtual DbSet<InvestmentPortfolio> InvestmentPortfolios { get; set; }
+        public virtual DbSet<Portfolio> InvestmentPortfolios { get; set; }
 
         public virtual DbSet<TradeTransaction> TradeTransactions { get; set; }
 
         #endregion
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Conventions.Add<;
+        }
+
     }
 }

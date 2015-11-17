@@ -12,24 +12,35 @@ namespace Ipm.DataModel
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class InvestmentPortfolio
+    public class Portfolio
     {
         #region Constructors and Destructors
 
-        public InvestmentPortfolio()
+        public Portfolio()
         {
-            this.InvestmentAccounts = new List<InvestmentAccount>();
+            this.InvestmentAccounts = new List<Account>();
         }
 
         #endregion
 
         #region Public Properties
 
-        public ICollection<InvestmentAccount> InvestmentAccounts { get; private set; }
+        public ICollection<Account> InvestmentAccounts { get; private set; }
 
         [Key]
         public Guid PortfolioId { get; set; }
 
         #endregion
+
+        public Account Account
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }

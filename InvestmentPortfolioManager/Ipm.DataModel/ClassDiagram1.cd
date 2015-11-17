@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Ipm.DataModel.Portfolio">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAACAEA=</HashCode>
+      <FileName>Portfolio.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Account" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Ipm.DataModel.Account">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABIAQAgAACAAggBAAQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Account.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CashTransaction" />
+      <Property Name="TradeTransaction" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Ipm.DataModel.CashTransaction" Collapsed="true">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEgAAggAAAAAAAABCAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>CashTransaction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ipm.DataModel.TradeTransaction" Collapsed="true">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAEgQAggACAAAAAAACAAAAAAAAAAAAQkAABAAA=</HashCode>
+      <FileName>TradeTransaction.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CashTransaction" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

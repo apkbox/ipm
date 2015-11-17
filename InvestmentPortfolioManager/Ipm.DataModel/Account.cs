@@ -12,14 +12,14 @@ namespace Ipm.DataModel
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class InvestmentAccount
+    public class Account
     {
         #region Constructors and Destructors
 
-        public InvestmentAccount()
+        public Account()
         {
-            this.AccountTransactions = new List<CashTransaction>();
-            this.TradesHistory = new List<TradeTransaction>();
+            this.CashTransactions = new List<CashTransaction>();
+            this.TradesTransactions = new List<TradeTransaction>();
         }
 
         #endregion
@@ -29,7 +29,7 @@ namespace Ipm.DataModel
         [Key]
         public Guid AccountId { get; set; }
 
-        public virtual ICollection<CashTransaction> AccountTransactions { get; private set; }
+        public virtual ICollection<CashTransaction> CashTransactions { get; private set; }
 
         public decimal BookCost { get; set; }
 
@@ -41,8 +41,30 @@ namespace Ipm.DataModel
 
         public string Name { get; set; }
 
-        public virtual ICollection<TradeTransaction> TradesHistory { get; private set; }
+        public virtual ICollection<TradeTransaction> TradesTransactions { get; private set; }
 
         #endregion
+
+        public CashTransaction CashTransaction
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
+
+        public TradeTransaction TradeTransaction
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+            }
+        }
     }
 }

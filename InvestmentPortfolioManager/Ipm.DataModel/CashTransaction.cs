@@ -20,7 +20,7 @@ namespace Ipm.DataModel
         public string Description { get; set; }
 
         [Key]
-        public int Id { get; set; }
+        public int CashTransactionId { get; set; }
 
         public bool IsImported { get; set; }
 
@@ -28,7 +28,7 @@ namespace Ipm.DataModel
 
         public DateTime TransactionDate { get; set; }
 
-        public decimal Value { get; set; }
+        public decimal Amount { get; set; }
 
         #endregion
     }
