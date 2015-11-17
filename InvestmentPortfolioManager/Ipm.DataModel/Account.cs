@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------
-// <copyright file="InvestmentAccount.cs" company="Alex Kozlov">
+// <copyright file="Account.cs" company="Alex Kozlov">
 //   Copyright (c) Alex Kozlov. All rights reserved.
 // </copyright>
 // <summary>
@@ -19,7 +19,7 @@ namespace Ipm.DataModel
         public Account()
         {
             this.CashTransactions = new List<CashTransaction>();
-            this.TradesTransactions = new List<TradeTransaction>();
+            this.AssetTransactions = new List<AssetTransaction>();
         }
 
         #endregion
@@ -29,11 +29,15 @@ namespace Ipm.DataModel
         [Key]
         public Guid AccountId { get; set; }
 
-        public virtual ICollection<CashTransaction> CashTransactions { get; private set; }
+        public virtual ICollection<AssetTransaction> AssetTransactions { get; private set; }
+
+        public BalanceBook BalanceBook { get; set; }
 
         public decimal BookCost { get; set; }
 
         public decimal CashBalance { get; set; }
+
+        public virtual ICollection<CashTransaction> CashTransactions { get; private set; }
 
         public string Currency { get; set; }
 
@@ -41,30 +45,6 @@ namespace Ipm.DataModel
 
         public string Name { get; set; }
 
-        public virtual ICollection<TradeTransaction> TradesTransactions { get; private set; }
-
         #endregion
-
-        public CashTransaction CashTransaction
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
-
-        public TradeTransaction TradeTransaction
-        {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
-            }
-        }
     }
 }

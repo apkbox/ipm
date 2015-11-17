@@ -3,40 +3,63 @@
   <Class Name="Ipm.DataModel.Portfolio">
     <Position X="0.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAACAEA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAACAAAAAAAACAAA=</HashCode>
       <FileName>Portfolio.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Account" />
+      <Property Name="BalanceBook" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Ipm.DataModel.Account">
-    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAABIAQAgAACAAggBAAQACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AEAAAABAAQAgAAAAAggAACQACAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Account.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="CashTransaction" />
-      <Property Name="TradeTransaction" />
+      <Property Name="BalanceBook" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="Ipm.DataModel.CashTransaction" Collapsed="true">
-    <Position X="5.75" Y="0.75" Width="1.5" />
+  <Class Name="Ipm.DataModel.CashTransaction">
+    <Position X="6" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEgAAggAAAAAAAABCAAAAAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>CashTransaction.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Ipm.DataModel.TradeTransaction" Collapsed="true">
-    <Position X="5.75" Y="2" Width="1.5" />
+  <Class Name="Ipm.DataModel.AssetTransaction">
+    <Position X="9.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAABAAEgQAggACAAAAAAACAAAAAAAAAAAAQkAABAAA=</HashCode>
-      <FileName>TradeTransaction.cs</FileName>
+      <HashCode>AAAABAAEgQAggACAAAgAAACAAAAQAAEBAAAAkAAAAAA=</HashCode>
+      <FileName>AssetTransaction.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="CashTransaction" />
     </ShowAsAssociation>
+  </Class>
+  <Class Name="Ipm.DataModel.Asset">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAQAAAAkAAIAAAgAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Asset.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ipm.DataModel.AssetInstance">
+    <Position X="6" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAgEAgAAAAAAQ=</HashCode>
+      <FileName>AssetInstance.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Asset" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Ipm.DataModel.BalanceBook">
+    <Position X="0.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAIAAAAIAIAAAAgAAAAAAAAAABAAAAAAEQAAAAA=</HashCode>
+      <FileName>BalanceBook.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

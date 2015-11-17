@@ -1,9 +1,9 @@
 // --------------------------------------------------------------------------------
-// <copyright file="TradeTransaction.cs" company="Alex Kozlov">
+// <copyright file="AssetTransaction.cs" company="Alex Kozlov">
 //   Copyright (c) Alex Kozlov. All rights reserved.
 // </copyright>
 // <summary>
-//   Defines the TradeTransaction type.
+//   Defines the AssetTransaction type.
 // </summary>
 // --------------------------------------------------------------------------------
 namespace Ipm.DataModel
@@ -11,18 +11,24 @@ namespace Ipm.DataModel
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class TradeTransaction
+    public class AssetTransaction
     {
         #region Public Properties
 
-        public decimal Comission { get; set; }
+        public decimal Amount { get; set; }
+
+        public string AssetName { get; set; }
+
+        [Key]
+        public int AssetTransactionId { get; set; }
+
+        public CashTransaction CashTransaction { get; set; }
+
+        public decimal Commission { get; set; }
 
         public string Comment { get; set; }
 
         public string Description { get; set; }
-
-        [Key]
-        public int TradeTransactionId { get; set; }
 
         public bool IsImported { get; set; }
 
@@ -36,14 +42,8 @@ namespace Ipm.DataModel
 
         public DateTime TransactionDate { get; set; }
 
-        public decimal Amount { get; set; }
+        public TransactionType TransactionType { get; set; }
 
         #endregion
-
-        public CashTransaction CashTransaction
-        {
-            get;
-            set;
-        }
     }
 }

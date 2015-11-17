@@ -22,16 +22,15 @@ namespace Ipm.DataModel.Tests
 
         #endregion
 
+        // [TestMethod]
         #region Public Methods and Operators
 
-        [TestMethod]
         public void CreateAccount()
         {
-            var portfolio =
-                this.model.InvestmentPortfolios.Add(new Portfolio() { PortfolioId = Guid.NewGuid() });
+            var portfolio = this.model.Portfolios.Add(new Portfolio { PortfolioId = Guid.NewGuid() });
 
-            portfolio.InvestmentAccounts.Add(
-                new Account()
+            portfolio.Accounts.Add(
+                new Account
                     {
                         AccountId = Guid.NewGuid(), 
                         Name = "TD TFSA", 
@@ -44,63 +43,16 @@ namespace Ipm.DataModel.Tests
             this.model.SaveChanges();
         }
 
-        [TestMethod]
-        public void CreateTradeTransactions()
-        {
-            var portfolio =
-                this.model.InvestmentPortfolios.Add(new Portfolio() { PortfolioId = Guid.NewGuid() });
+        // [TestMethod]
 
-            var accountId = Guid.NewGuid();
-            portfolio.InvestmentAccounts.Add(
-                new Account()
-                    {
-                        AccountId = accountId, 
-                        Name = "TD TFSA", 
-                        Description = "TD TFSA Account CAD", 
-                        Currency = "CAD", 
-                        CashBalance = 0, 
-                        BookCost = 0, 
-                    });
-            this.model.SaveChanges();
-
-            var transaction = new TradeTransaction()
-                                  {
-                                      TransactionDate = DateTime.Now, 
-                                      TickerSymbol = "MSFT", 
-                                      Description = "Microsoft Corporation", 
-                                      Price = (decimal)23.02, 
-                                      Quantity = 1000, 
-                                      Comission = (decimal)9.95, 
-                                      Amount = (decimal)(23.02 * 1000)
-                                  };
-            var account = portfolio.InvestmentAccounts.FirstOrDefault(a => a.AccountId == accountId);
-            if (account != null)
-            {
-                account.TradesTransactions.Add(transaction);
-            }
-
-            this.model.SaveChanges();
-
-            using (var vmodel = new IpmModel())
-            {
-                Assert.IsNotNull(model);
-                var pf = this.model.InvestmentPortfolios.Find(portfolio.PortfolioId);
-                Assert.IsNotNull(pf);
-                var acc = pf.InvestmentAccounts.FirstOrDefault(a => a.AccountId == accountId);
-                Assert.IsNotNull(acc);
-                Assert.IsNotNull(acc.TradesTransactions.FirstOrDefault(t => t.TickerSymbol == "MSFT"));
-            }
-        }
-
-        [TestMethod]
+        // [TestMethod]
         public void CreateBuyTransactions()
         {
-            var portfolio =
-                this.model.InvestmentPortfolios.Add(new Portfolio() { PortfolioId = Guid.NewGuid() });
+            var portfolio = this.model.Portfolios.Add(new Portfolio { PortfolioId = Guid.NewGuid() });
 
             var accountId = Guid.NewGuid();
-            portfolio.InvestmentAccounts.Add(
-                new Account()
+            portfolio.Accounts.Add(
+                new Account
                     {
                         AccountId = accountId, 
                         Name = "TD TFSA", 
@@ -112,33 +64,33 @@ namespace Ipm.DataModel.Tests
             this.model.SaveChanges();
 
             var date = DateTime.Now;
-            var price = (decimal)23.02;
-            var quantity = (decimal)1000;
-            var amount = price * quantity + (decimal)9.99;
+            const decimal Price = (decimal)23.02;
+            const decimal Quantity = (decimal)1000;
+            const decimal Amount = (Price * Quantity) + (decimal)9.99;
 
-            var cashTransaction = new CashTransaction()
+            var cashTransaction = new CashTransaction
                                       {
-                                          TransactionDate = date,
-                                          Description = "Buying 1000 x $23.02 MSFT shares.",
-                                          Comment = "Great deal",
-                                          Amount = -amount
+                                          TransactionDate = date, 
+                                          Description = "Buying 1000 x $23.02 MSFT shares.", 
+                                          Comment = "Great deal", 
+                                          Amount = -Amount
                                       };
 
-            var transaction = new TradeTransaction()
+            var transaction = new AssetTransaction
                                   {
                                       TransactionDate = DateTime.Now, 
                                       TickerSymbol = "MSFT", 
                                       Description = "Microsoft Corporation", 
-                                      Price = price, 
-                                      Quantity = quantity, 
-                                      Comission = (decimal)9.95, 
-                                      Amount = amount
+                                      Price = Price, 
+                                      Quantity = Quantity, 
+                                      Commission = (decimal)9.95, 
+                                      Amount = Amount
                                   };
-            var account = portfolio.InvestmentAccounts.FirstOrDefault(a => a.AccountId == accountId);
+            var account = portfolio.Accounts.FirstOrDefault(a => a.AccountId == accountId);
             if (account != null)
             {
                 account.CashTransactions.Add(cashTransaction);
-                account.TradesTransactions.Add(transaction);
+                account.AssetTransactions.Add(transaction);
             }
 
             this.model.SaveChanges();
@@ -146,32 +98,80 @@ namespace Ipm.DataModel.Tests
             using (var vmodel = new IpmModel())
             {
                 Assert.IsNotNull(vmodel);
-                var pf = this.model.InvestmentPortfolios.Find(portfolio.PortfolioId);
+                var pf = this.model.Portfolios.Find(portfolio.PortfolioId);
                 Assert.IsNotNull(pf);
-                var acc = pf.InvestmentAccounts.FirstOrDefault(a => a.AccountId == accountId);
+                var acc = pf.Accounts.FirstOrDefault(a => a.AccountId == accountId);
                 Assert.IsNotNull(acc);
-                Assert.IsNotNull(acc.TradesTransactions.FirstOrDefault(t => t.TickerSymbol == "MSFT"));
+                Assert.IsNotNull(acc.AssetTransactions.FirstOrDefault(t => t.TickerSymbol == "MSFT"));
+            }
+        }
+
+        // [TestMethod]
+        public void CreatePortfolio()
+        {
+            var portfolioId = Guid.NewGuid();
+            this.model.Portfolios.Add(new Portfolio { PortfolioId = portfolioId });
+            this.model.SaveChanges();
+        }
+
+        public void CreateTradeTransactions()
+        {
+            var portfolio = this.model.Portfolios.Add(new Portfolio { PortfolioId = Guid.NewGuid() });
+
+            var accountId = Guid.NewGuid();
+            portfolio.Accounts.Add(
+                new Account
+                    {
+                        AccountId = accountId, 
+                        Name = "TD TFSA", 
+                        Description = "TD TFSA Account CAD", 
+                        Currency = "CAD", 
+                        CashBalance = 0, 
+                        BookCost = 0, 
+                    });
+            this.model.SaveChanges();
+
+            var transaction = new AssetTransaction
+                                  {
+                                      TransactionDate = DateTime.Now, 
+                                      TickerSymbol = "MSFT", 
+                                      Description = "Microsoft Corporation", 
+                                      Price = (decimal)23.02, 
+                                      Quantity = 1000, 
+                                      Commission = (decimal)9.95, 
+                                      Amount = (decimal)(23.02 * 1000)
+                                  };
+            var account = portfolio.Accounts.FirstOrDefault(a => a.AccountId == accountId);
+            if (account != null)
+            {
+                account.AssetTransactions.Add(transaction);
+            }
+
+            this.model.SaveChanges();
+
+            using (new IpmModel())
+            {
+                Assert.IsNotNull(this.model);
+                var pf = this.model.Portfolios.Find(portfolio.PortfolioId);
+                Assert.IsNotNull(pf);
+                var acc = pf.Accounts.FirstOrDefault(a => a.AccountId == accountId);
+                Assert.IsNotNull(acc);
+                Assert.IsNotNull(acc.AssetTransactions.FirstOrDefault(t => t.TickerSymbol == "MSFT"));
             }
         }
 
         [TestMethod]
-        public void CreatePortfolio()
+        public void InitializeEmptyDatabase()
         {
-            var portfolioId = Guid.NewGuid();
-            var portfolio =
-                this.model.InvestmentPortfolios.Add(new Portfolio() { PortfolioId = portfolioId });
-            this.model.SaveChanges();
+            this.model.Database.Initialize(false);
+            Assert.IsTrue(true);
         }
 
         [TestInitialize]
         public void SetUp()
         {
             this.model = new IpmModel();
-            if (this.model != null)
-            {
-                this.model.Database.Delete();
-                this.model.Database.CreateIfNotExists();
-            }
+            Assert.IsNotNull(this.model);
         }
 
         [TestCleanup]

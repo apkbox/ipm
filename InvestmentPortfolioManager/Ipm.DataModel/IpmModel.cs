@@ -22,6 +22,7 @@ namespace Ipm.DataModel
         public IpmModel()
             : base("name=IpmModel")
         {
+            Database.SetInitializer(new DatabaseInitializer());
         }
 
         #endregion
@@ -30,22 +31,29 @@ namespace Ipm.DataModel
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
         #region Public Properties
 
+        public virtual DbSet<Account> Accounts { get; set; }
+
+        public virtual DbSet<AssetInstance> AssetInstances { get; set; }
+
+        public virtual DbSet<AssetTransaction> AssetTransactions { get; set; }
+
+        public virtual DbSet<Asset> Assets { get; set; }
+
+        public virtual DbSet<BalanceBook> BalanceBooks { get; set; }
+
         public virtual DbSet<CashTransaction> CashTransactions { get; set; }
 
-        public virtual DbSet<Account> InvestmentAccounts { get; set; }
-
-        public virtual DbSet<Portfolio> InvestmentPortfolios { get; set; }
-
-        public virtual DbSet<TradeTransaction> TradeTransactions { get; set; }
+        public virtual DbSet<Portfolio> Portfolios { get; set; }
 
         #endregion
+
+        #region Methods
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Conventions.Add<;
         }
 
+        #endregion
     }
 }
