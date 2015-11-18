@@ -50,25 +50,80 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssetInstance.cs" />
-    <Compile Include="TransactionType.cs" />
-    <Compile Include="BalanceBook.cs" />
-    <Compile Include="CashTransaction.cs" />
-    <Compile Include="Account.cs" />
+    <Compile Include="Account.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountBalanceBook.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Asset.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AssetInstance.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AssetTransaction.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BalanceBook.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CashTransaction.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IpmDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IpmDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IpmDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IpmDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IpmDataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseInitializer.cs" />
-    <Compile Include="Asset.cs" />
-    <Compile Include="Portfolio.cs" />
-    <Compile Include="IpmModel.cs" />
+    <Compile Include="Portfolio.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PortfolioBalanceBook.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AssetTransaction.cs" />
+    <Compile Include="TransactionType.cs">
+      <DependentUpon>IpmDataModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
+    <EntityDeploy Include="IpmDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IpmDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="IpmDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IpmDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>IpmDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="IpmDataModel.edmx.diagram">
+      <DependentUpon>IpmDataModel.edmx</DependentUpon>
+    </None>
+    <None Include="IpmDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IpmDataModel.cs</LastGenOutput>
+      <DependentUpon>IpmDataModel.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IpmDataModel.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

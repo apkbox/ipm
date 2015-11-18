@@ -9,6 +9,8 @@
 namespace Ipm.DataModel.Tests
 {
     using System;
+    using System.Data.Entity.Validation;
+    using System.Diagnostics;
     using System.Linq;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,45 +24,37 @@ namespace Ipm.DataModel.Tests
 
         #endregion
 
-        // [TestMethod]
         #region Public Methods and Operators
 
+        [TestMethod]
         public void CreateAccount()
         {
-            var portfolio = this.model.Portfolios.Add(new Portfolio { PortfolioId = Guid.NewGuid() });
-
-            portfolio.Accounts.Add(
-                new Account
-                    {
-                        AccountId = Guid.NewGuid(), 
-                        Name = "TD TFSA", 
-                        Description = "TD TFSA Account CAD", 
-                        Currency = "CAD", 
-                        CashBalance = 0, 
-                        BookCost = 0, 
-                    });
-
+            var portfolio = new Portfolio { BalanceBook = new PortfolioBalanceBook() };
+            var account = new Account
+            {
+                Name = "TD TFSA",
+                Description = "TD TFSA Account CAD",
+                Currency = "CAD",
+                BalanceBook = new AccountBalanceBook()
+            };
+            portfolio.Accounts.Add(account);
+            this.model.Portfolios.Add(portfolio);
             this.model.SaveChanges();
         }
 
-        // [TestMethod]
-
-        // [TestMethod]
+        [TestMethod]
         public void CreateBuyTransactions()
         {
-            var portfolio = this.model.Portfolios.Add(new Portfolio { PortfolioId = Guid.NewGuid() });
-
-            var accountId = Guid.NewGuid();
-            portfolio.Accounts.Add(
-                new Account
-                    {
-                        AccountId = accountId, 
-                        Name = "TD TFSA", 
-                        Description = "TD TFSA Account CAD", 
-                        Currency = "CAD", 
-                        CashBalance = 0, 
-                        BookCost = 0, 
-                    });
+            var portfolio = new Portfolio { BalanceBook = new PortfolioBalanceBook() };
+            var account = new Account
+            {
+                Name = "TD TFSA",
+                Description = "TD TFSA Account CAD",
+                Currency = "CAD",
+                BalanceBook = new AccountBalanceBook()
+            };
+            portfolio.Accounts.Add(account);
+            this.model.Portfolios.Add(portfolio);
             this.model.SaveChanges();
 
             var date = DateTime.Now;
@@ -86,12 +80,8 @@ namespace Ipm.DataModel.Tests
                                       Commission = (decimal)9.95, 
                                       Amount = Amount
                                   };
-            var account = portfolio.Accounts.FirstOrDefault(a => a.AccountId == accountId);
-            if (account != null)
-            {
-                account.CashTransactions.Add(cashTransaction);
-                account.AssetTransactions.Add(transaction);
-            }
+            account.CashTransactions.Add(cashTransaction);
+            account.AssetTransactions.Add(transaction);
 
             this.model.SaveChanges();
 
@@ -100,35 +90,32 @@ namespace Ipm.DataModel.Tests
                 Assert.IsNotNull(vmodel);
                 var pf = this.model.Portfolios.Find(portfolio.PortfolioId);
                 Assert.IsNotNull(pf);
-                var acc = pf.Accounts.FirstOrDefault(a => a.AccountId == accountId);
+                var acc = pf.Accounts.FirstOrDefault(a => a.AccountId == account.AccountId);
                 Assert.IsNotNull(acc);
                 Assert.IsNotNull(acc.AssetTransactions.FirstOrDefault(t => t.TickerSymbol == "MSFT"));
             }
         }
 
-        // [TestMethod]
+        [TestMethod]
         public void CreatePortfolio()
         {
-            var portfolioId = Guid.NewGuid();
-            this.model.Portfolios.Add(new Portfolio { PortfolioId = portfolioId });
+            this.model.Portfolios.Add(new Portfolio { BalanceBook = new PortfolioBalanceBook() });
             this.model.SaveChanges();
         }
 
+        [TestMethod]
         public void CreateTradeTransactions()
         {
-            var portfolio = this.model.Portfolios.Add(new Portfolio { PortfolioId = Guid.NewGuid() });
-
-            var accountId = Guid.NewGuid();
-            portfolio.Accounts.Add(
-                new Account
-                    {
-                        AccountId = accountId, 
-                        Name = "TD TFSA", 
-                        Description = "TD TFSA Account CAD", 
-                        Currency = "CAD", 
-                        CashBalance = 0, 
-                        BookCost = 0, 
-                    });
+            var portfolio = new Portfolio { BalanceBook = new PortfolioBalanceBook() };
+            var account = new Account
+                              {
+                                  Name = "TD TFSA",
+                                  Description = "TD TFSA Account CAD",
+                                  Currency = "CAD",
+                                  BalanceBook = new AccountBalanceBook()
+                              };
+            portfolio.Accounts.Add(account);
+            this.model.Portfolios.Add(portfolio);
             this.model.SaveChanges();
 
             var transaction = new AssetTransaction
@@ -141,11 +128,7 @@ namespace Ipm.DataModel.Tests
                                       Commission = (decimal)9.95, 
                                       Amount = (decimal)(23.02 * 1000)
                                   };
-            var account = portfolio.Accounts.FirstOrDefault(a => a.AccountId == accountId);
-            if (account != null)
-            {
-                account.AssetTransactions.Add(transaction);
-            }
+            account.AssetTransactions.Add(transaction);
 
             this.model.SaveChanges();
 
@@ -154,17 +137,10 @@ namespace Ipm.DataModel.Tests
                 Assert.IsNotNull(this.model);
                 var pf = this.model.Portfolios.Find(portfolio.PortfolioId);
                 Assert.IsNotNull(pf);
-                var acc = pf.Accounts.FirstOrDefault(a => a.AccountId == accountId);
+                var acc = pf.Accounts.FirstOrDefault(a => a.AccountId == account.AccountId);
                 Assert.IsNotNull(acc);
                 Assert.IsNotNull(acc.AssetTransactions.FirstOrDefault(t => t.TickerSymbol == "MSFT"));
             }
-        }
-
-        [TestMethod]
-        public void InitializeEmptyDatabase()
-        {
-            this.model.Database.Initialize(false);
-            Assert.IsTrue(true);
         }
 
         [TestInitialize]
@@ -172,6 +148,7 @@ namespace Ipm.DataModel.Tests
         {
             this.model = new IpmModel();
             Assert.IsNotNull(this.model);
+            this.model.Database.Log = Console.Write;
         }
 
         [TestCleanup]

@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IpmDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="IpmDataModelStoreContainer">
+    <EntitySet Name="Assets" EntityType="IpmDataModel.Store.Assets" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AssetInstances" EntityType="IpmDataModel.Store.AssetInstances" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Portfolios" EntityType="IpmDataModel.Store.Portfolios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Accounts" EntityType="IpmDataModel.Store.Accounts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BalanceBooks" EntityType="IpmDataModel.Store.BalanceBooks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CashTransactions" EntityType="IpmDataModel.Store.CashTransactions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AssetTransactions" EntityType="IpmDataModel.Store.AssetTransactions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BalanceBooks_PortfolioBalanceBook" EntityType="IpmDataModel.Store.BalanceBooks_PortfolioBalanceBook" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BalanceBooks_AccountBalanceBook" EntityType="IpmDataModel.Store.BalanceBooks_AccountBalanceBook" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="AccountCashTransaction" Association="IpmDataModel.Store.AccountCashTransaction">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="CashTransaction" EntitySet="CashTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="PortfolioAccount" Association="IpmDataModel.Store.PortfolioAccount">
+      <End Role="Portfolio" EntitySet="Portfolios" />
+      <End Role="Account" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="AccountAssetTransaction" Association="IpmDataModel.Store.AccountAssetTransaction">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="AssetTransaction" EntitySet="AssetTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="AssetAssetInstance" Association="IpmDataModel.Store.AssetAssetInstance">
+      <End Role="Asset" EntitySet="Assets" />
+      <End Role="AssetInstance" EntitySet="AssetInstances" />
+    </AssociationSet>
+    <AssociationSet Name="AccountAssetInstance" Association="IpmDataModel.Store.AccountAssetInstance">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="AssetInstance" EntitySet="AssetInstances" />
+    </AssociationSet>
+    <AssociationSet Name="AssetInstanceAssetTransaction" Association="IpmDataModel.Store.AssetInstanceAssetTransaction">
+      <End Role="AssetInstance" EntitySet="AssetInstances" />
+      <End Role="AssetTransaction" EntitySet="AssetTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="AssetTransactionCashTransaction" Association="IpmDataModel.Store.AssetTransactionCashTransaction">
+      <End Role="AssetTransaction" EntitySet="AssetTransactions" />
+      <End Role="CashTransaction" EntitySet="CashTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="PortfolioPortfolioBalanceBook" Association="IpmDataModel.Store.PortfolioPortfolioBalanceBook">
+      <End Role="Portfolio" EntitySet="Portfolios" />
+      <End Role="PortfolioBalanceBook" EntitySet="BalanceBooks_PortfolioBalanceBook" />
+    </AssociationSet>
+    <AssociationSet Name="AccountAccountBalanceBook" Association="IpmDataModel.Store.AccountAccountBalanceBook">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="AccountBalanceBook" EntitySet="BalanceBooks_AccountBalanceBook" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PortfolioBalanceBook_inherits_BalanceBook" Association="IpmDataModel.Store.FK_PortfolioBalanceBook_inherits_BalanceBook">
+      <End Role="BalanceBook" EntitySet="BalanceBooks" />
+      <End Role="PortfolioBalanceBook" EntitySet="BalanceBooks_PortfolioBalanceBook" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AccountBalanceBook_inherits_BalanceBook" Association="IpmDataModel.Store.FK_AccountBalanceBook_inherits_BalanceBook">
+      <End Role="BalanceBook" EntitySet="BalanceBooks" />
+      <End Role="AccountBalanceBook" EntitySet="BalanceBooks_AccountBalanceBook" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Assets">
+    <Key>
+      <PropertyRef Name="AssetId" />
+    </Key>
+    <Property Name="AssetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TickerSymbol" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AssetName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DividendYield" Type="decimal" Nullable="false" />
+    <Property Name="MER" Type="decimal" Nullable="false" />
+    <Property Name="LastMarketPrice" Type="decimal" Nullable="false" />
+    <Property Name="LastQuoteDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AssetInstances">
+    <Key>
+      <PropertyRef Name="AssetInstanceId" />
+    </Key>
+    <Property Name="AssetInstanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BookCost" Type="decimal" Nullable="false" />
+    <Property Name="MarketPrice" Type="decimal" Nullable="false" />
+    <Property Name="Asset_AssetId" Type="int" Nullable="false" />
+    <Property Name="Account_AccountId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Portfolios">
+    <Key>
+      <PropertyRef Name="PortfolioId" />
+    </Key>
+    <Property Name="PortfolioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BalanceBook_BalanceBookId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Accounts">
+    <Key>
+      <PropertyRef Name="AccountId" />
+    </Key>
+    <Property Name="AccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Currency" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Portfolio_PortfolioId" Type="int" Nullable="false" />
+    <Property Name="BalanceBook_BalanceBookId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BalanceBooks">
+    <Key>
+      <PropertyRef Name="BalanceBookId" />
+    </Key>
+    <Property Name="BalanceBookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CashBalance" Type="decimal" Nullable="false" />
+    <Property Name="AssetsBookCost" Type="decimal" Nullable="false" />
+    <Property Name="AssetsMarketPrice" Type="decimal" Nullable="false" />
+    <Property Name="Yield" Type="decimal" Nullable="false" />
+    <Property Name="YieldPercent" Type="decimal" Nullable="false" />
+    <Property Name="Return" Type="decimal" Nullable="false" />
+    <Property Name="ReturnPercent" Type="decimal" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CashTransactions">
+    <Key>
+      <PropertyRef Name="CashTransactionId" />
+    </Key>
+    <Property Name="CashTransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+    <Property Name="SettlementDate" Type="datetime" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
+    <Property Name="IsImported" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Account_AccountId" Type="int" Nullable="false" />
+    <Property Name="AssetTransaction_AssetTransactionId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="AssetTransactions">
+    <Key>
+      <PropertyRef Name="AssetTransactionId" />
+    </Key>
+    <Property Name="AssetTransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TransactionType" Type="int" Nullable="false" />
+    <Property Name="TransactionDate" Type="datetime" Nullable="false" />
+    <Property Name="SettlementDate" Type="datetime" Nullable="true" />
+    <Property Name="TickerSymbol" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AssetName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Price" Type="decimal" Nullable="false" />
+    <Property Name="Quantity" Type="decimal" Nullable="false" />
+    <Property Name="Commission" Type="decimal" Nullable="false" />
+    <Property Name="Amount" Type="decimal" Nullable="false" />
+    <Property Name="IsImported" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Account_AccountId" Type="int" Nullable="false" />
+    <Property Name="AssetInstance_AssetInstanceId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="BalanceBooks_PortfolioBalanceBook">
+    <Key>
+      <PropertyRef Name="BalanceBookId" />
+    </Key>
+    <Property Name="BalanceBookId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BalanceBooks_AccountBalanceBook">
+    <Key>
+      <PropertyRef Name="BalanceBookId" />
+    </Key>
+    <Property Name="BalanceBookId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="AccountCashTransaction">
+    <End Role="Account" Type="IpmDataModel.Store.Accounts" Multiplicity="1" />
+    <End Role="CashTransaction" Type="IpmDataModel.Store.CashTransactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="AccountId" />
+      </Principal>
+      <Dependent Role="CashTransaction">
+        <PropertyRef Name="Account_AccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PortfolioAccount">
+    <End Role="Portfolio" Type="IpmDataModel.Store.Portfolios" Multiplicity="1" />
+    <End Role="Account" Type="IpmDataModel.Store.Accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Portfolio">
+        <PropertyRef Name="PortfolioId" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="Portfolio_PortfolioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AccountAssetTransaction">
+    <End Role="Account" Type="IpmDataModel.Store.Accounts" Multiplicity="1" />
+    <End Role="AssetTransaction" Type="IpmDataModel.Store.AssetTransactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="AccountId" />
+      </Principal>
+      <Dependent Role="AssetTransaction">
+        <PropertyRef Name="Account_AccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AssetAssetInstance">
+    <End Role="Asset" Type="IpmDataModel.Store.Assets" Multiplicity="1" />
+    <End Role="AssetInstance" Type="IpmDataModel.Store.AssetInstances" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Asset">
+        <PropertyRef Name="AssetId" />
+      </Principal>
+      <Dependent Role="AssetInstance">
+        <PropertyRef Name="Asset_AssetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AccountAssetInstance">
+    <End Role="Account" Type="IpmDataModel.Store.Accounts" Multiplicity="0..1" />
+    <End Role="AssetInstance" Type="IpmDataModel.Store.AssetInstances" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="AccountId" />
+      </Principal>
+      <Dependent Role="AssetInstance">
+        <PropertyRef Name="Account_AccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AssetInstanceAssetTransaction">
+    <End Role="AssetInstance" Type="IpmDataModel.Store.AssetInstances" Multiplicity="0..1" />
+    <End Role="AssetTransaction" Type="IpmDataModel.Store.AssetTransactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetInstance">
+        <PropertyRef Name="AssetInstanceId" />
+      </Principal>
+      <Dependent Role="AssetTransaction">
+        <PropertyRef Name="AssetInstance_AssetInstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AssetTransactionCashTransaction">
+    <End Role="AssetTransaction" Type="IpmDataModel.Store.AssetTransactions" Multiplicity="0..1" />
+    <End Role="CashTransaction" Type="IpmDataModel.Store.CashTransactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AssetTransaction">
+        <PropertyRef Name="AssetTransactionId" />
+      </Principal>
+      <Dependent Role="CashTransaction">
+        <PropertyRef Name="AssetTransaction_AssetTransactionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PortfolioPortfolioBalanceBook">
+    <End Role="Portfolio" Type="IpmDataModel.Store.Portfolios" Multiplicity="*" />
+    <End Role="PortfolioBalanceBook" Type="IpmDataModel.Store.BalanceBooks_PortfolioBalanceBook" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="PortfolioBalanceBook">
+        <PropertyRef Name="BalanceBookId" />
+      </Principal>
+      <Dependent Role="Portfolio">
+        <PropertyRef Name="BalanceBook_BalanceBookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AccountAccountBalanceBook">
+    <End Role="Account" Type="IpmDataModel.Store.Accounts" Multiplicity="*" />
+    <End Role="AccountBalanceBook" Type="IpmDataModel.Store.BalanceBooks_AccountBalanceBook" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="AccountBalanceBook">
+        <PropertyRef Name="BalanceBookId" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="BalanceBook_BalanceBookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PortfolioBalanceBook_inherits_BalanceBook">
+    <End Role="BalanceBook" Type="IpmDataModel.Store.BalanceBooks" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PortfolioBalanceBook" Type="IpmDataModel.Store.BalanceBooks_PortfolioBalanceBook" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="BalanceBook">
+        <PropertyRef Name="BalanceBookId" />
+      </Principal>
+      <Dependent Role="PortfolioBalanceBook">
+        <PropertyRef Name="BalanceBookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AccountBalanceBook_inherits_BalanceBook">
+    <End Role="BalanceBook" Type="IpmDataModel.Store.BalanceBooks" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AccountBalanceBook" Type="IpmDataModel.Store.BalanceBooks_AccountBalanceBook" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="BalanceBook">
+        <PropertyRef Name="BalanceBookId" />
+      </Principal>
+      <Dependent Role="AccountBalanceBook">
+        <PropertyRef Name="BalanceBookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="IpmDataModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="IpmModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Assets" EntityType="IpmDataModel.Asset" />
+          <EntitySet Name="AssetInstances" EntityType="IpmDataModel.AssetInstance" />
+          <EntitySet Name="Portfolios" EntityType="IpmDataModel.Portfolio" />
+          <EntitySet Name="Accounts" EntityType="IpmDataModel.Account" />
+          <EntitySet Name="BalanceBooks" EntityType="IpmDataModel.BalanceBook" />
+          <EntitySet Name="CashTransactions" EntityType="IpmDataModel.CashTransaction" />
+          <AssociationSet Name="AccountCashTransaction" Association="IpmDataModel.AccountCashTransaction">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="CashTransaction" EntitySet="CashTransactions" />
+          </AssociationSet>
+          <EntitySet Name="AssetTransactions" EntityType="IpmDataModel.AssetTransaction" />
+          <AssociationSet Name="PortfolioAccount" Association="IpmDataModel.PortfolioAccount">
+            <End Role="Portfolio" EntitySet="Portfolios" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="AccountAssetTransaction" Association="IpmDataModel.AccountAssetTransaction">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="AssetTransaction" EntitySet="AssetTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="AssetAssetInstance" Association="IpmDataModel.AssetAssetInstance">
+            <End Role="Asset" EntitySet="Assets" />
+            <End Role="AssetInstance" EntitySet="AssetInstances" />
+          </AssociationSet>
+          <AssociationSet Name="AccountAssetInstance" Association="IpmDataModel.AccountAssetInstance">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="AssetInstance" EntitySet="AssetInstances" />
+          </AssociationSet>
+          <AssociationSet Name="AssetInstanceAssetTransaction" Association="IpmDataModel.AssetInstanceAssetTransaction">
+            <End Role="AssetInstance" EntitySet="AssetInstances" />
+            <End Role="AssetTransaction" EntitySet="AssetTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="AssetTransactionCashTransaction" Association="IpmDataModel.AssetTransactionCashTransaction">
+            <End Role="AssetTransaction" EntitySet="AssetTransactions" />
+            <End Role="CashTransaction" EntitySet="CashTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="PortfolioPortfolioBalanceBook" Association="IpmDataModel.PortfolioPortfolioBalanceBook">
+            <End Role="Portfolio" EntitySet="Portfolios" />
+            <End Role="PortfolioBalanceBook" EntitySet="BalanceBooks" />
+          </AssociationSet>
+          <AssociationSet Name="AccountAccountBalanceBook" Association="IpmDataModel.AccountAccountBalanceBook">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="AccountBalanceBook" EntitySet="BalanceBooks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Asset">
+          <Key>
+            <PropertyRef Name="AssetId" />
+          </Key>
+          <Property Name="AssetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AssetInstances" Relationship="IpmDataModel.AssetAssetInstance" FromRole="Asset" ToRole="AssetInstance" />
+          <Property Name="TickerSymbol" Type="String" Nullable="false" />
+          <Property Name="AssetName" Type="String" Nullable="false" />
+          <Property Name="DividendYield" Type="Decimal" Nullable="false" />
+          <Property Name="MER" Type="Decimal" Nullable="false" />
+          <Property Name="LastMarketPrice" Type="Decimal" Nullable="false" />
+          <Property Name="LastQuoteDate" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AssetInstance">
+          <Key>
+            <PropertyRef Name="AssetInstanceId" />
+          </Key>
+          <Property Name="AssetInstanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Asset" Relationship="IpmDataModel.AssetAssetInstance" FromRole="AssetInstance" ToRole="Asset" />
+          <NavigationProperty Name="Account" Relationship="IpmDataModel.AccountAssetInstance" FromRole="AssetInstance" ToRole="Account" />
+          <Property Name="BookCost" Type="Decimal" Nullable="false" />
+          <Property Name="MarketPrice" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="AssetTransactions" Relationship="IpmDataModel.AssetInstanceAssetTransaction" FromRole="AssetInstance" ToRole="AssetTransaction" />
+        </EntityType>
+        <EntityType Name="Portfolio">
+          <Key>
+            <PropertyRef Name="PortfolioId" />
+          </Key>
+          <Property Name="PortfolioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Accounts" Relationship="IpmDataModel.PortfolioAccount" FromRole="Portfolio" ToRole="Account" />
+          <NavigationProperty Name="BalanceBook" Relationship="IpmDataModel.PortfolioPortfolioBalanceBook" FromRole="Portfolio" ToRole="PortfolioBalanceBook" />
+        </EntityType>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Currency" Type="String" Nullable="true" />
+          <NavigationProperty Name="Portfolio" Relationship="IpmDataModel.PortfolioAccount" FromRole="Account" ToRole="Portfolio" />
+          <NavigationProperty Name="CashTransactions" Relationship="IpmDataModel.AccountCashTransaction" FromRole="Account" ToRole="CashTransaction" />
+          <NavigationProperty Name="AssetTransactions" Relationship="IpmDataModel.AccountAssetTransaction" FromRole="Account" ToRole="AssetTransaction" />
+          <NavigationProperty Name="Assets" Relationship="IpmDataModel.AccountAssetInstance" FromRole="Account" ToRole="AssetInstance" />
+          <NavigationProperty Name="BalanceBook" Relationship="IpmDataModel.AccountAccountBalanceBook" FromRole="Account" ToRole="AccountBalanceBook" />
+        </EntityType>
+        <EntityType Name="BalanceBook">
+          <Key>
+            <PropertyRef Name="BalanceBookId" />
+          </Key>
+          <Property Name="BalanceBookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CashBalance" Type="Decimal" Nullable="false" />
+          <Property Name="AssetsBookCost" Type="Decimal" Nullable="false" />
+          <Property Name="AssetsMarketPrice" Type="Decimal" Nullable="false" />
+          <Property Name="Yield" Type="Decimal" Nullable="false" />
+          <Property Name="YieldPercent" Type="Decimal" Nullable="false" />
+          <Property Name="Return" Type="Decimal" Nullable="false" />
+          <Property Name="ReturnPercent" Type="Decimal" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CashTransaction">
+          <Key>
+            <PropertyRef Name="CashTransactionId" />
+          </Key>
+          <Property Name="CashTransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" />
+          <Property Name="SettlementDate" Type="DateTime" Nullable="true" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Comment" Type="String" Nullable="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" />
+          <Property Name="IsImported" Type="Boolean" Nullable="false" DefaultValue="false" />
+          <NavigationProperty Name="Account" Relationship="IpmDataModel.AccountCashTransaction" FromRole="CashTransaction" ToRole="Account" />
+          <NavigationProperty Name="AssetTransaction" Relationship="IpmDataModel.AssetTransactionCashTransaction" FromRole="CashTransaction" ToRole="AssetTransaction" />
+        </EntityType>
+        <Association Name="AccountCashTransaction">
+          <End Type="IpmDataModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="IpmDataModel.CashTransaction" Role="CashTransaction" Multiplicity="*" >
+          </End>
+        </Association>
+        <EntityType Name="AssetTransaction">
+          <Key>
+            <PropertyRef Name="AssetTransactionId" />
+          </Key>
+          <Property Name="AssetTransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionType" Type="IpmDataModel.TransactionType" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" />
+          <Property Name="SettlementDate" Type="DateTime" Nullable="true" />
+          <Property Name="TickerSymbol" Type="String" Nullable="false" />
+          <Property Name="AssetName" Type="String" Nullable="true" />
+          <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Comment" Type="String" Nullable="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" />
+          <Property Name="Commission" Type="Decimal" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" />
+          <Property Name="IsImported" Type="Boolean" Nullable="false" DefaultValue="false" />
+          <NavigationProperty Name="Account" Relationship="IpmDataModel.AccountAssetTransaction" FromRole="AssetTransaction" ToRole="Account" />
+          <NavigationProperty Name="AssetInstance" Relationship="IpmDataModel.AssetInstanceAssetTransaction" FromRole="AssetTransaction" ToRole="AssetInstance" />
+          <NavigationProperty Name="CashTransaction" Relationship="IpmDataModel.AssetTransactionCashTransaction" FromRole="AssetTransaction" ToRole="CashTransaction" />
+        </EntityType>
+        <Association Name="PortfolioAccount">
+          <End Type="IpmDataModel.Portfolio" Role="Portfolio" Multiplicity="1" >
+          </End>
+          <End Type="IpmDataModel.Account" Role="Account" Multiplicity="*" >
+          </End>
+        </Association>
+        <Association Name="AccountAssetTransaction">
+          <End Type="IpmDataModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="IpmDataModel.AssetTransaction" Role="AssetTransaction" Multiplicity="*" >
+          </End>
+        </Association>
+        <Association Name="AssetAssetInstance">
+          <End Type="IpmDataModel.Asset" Role="Asset" Multiplicity="1" />
+          <End Type="IpmDataModel.AssetInstance" Role="AssetInstance" Multiplicity="*" />
+        </Association>
+        <Association Name="AccountAssetInstance">
+          <End Type="IpmDataModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="IpmDataModel.AssetInstance" Role="AssetInstance" Multiplicity="*" >
+          </End>
+        </Association>
+        <Association Name="AssetInstanceAssetTransaction">
+          <End Type="IpmDataModel.AssetInstance" Role="AssetInstance" Multiplicity="0..1" />
+          <End Type="IpmDataModel.AssetTransaction" Role="AssetTransaction" Multiplicity="*" />
+        </Association>
+        <EnumType Name="TransactionType" >
+          <Member Name="BuySell" Value="0" />
+          <Member Name="Dividend" Value="1" />
+          <Member Name="DividendReinvestment" Value="2" />
+        </EnumType>
+        <Association Name="AssetTransactionCashTransaction">
+          <End Type="IpmDataModel.AssetTransaction" Role="AssetTransaction" Multiplicity="0..1" />
+          <End Type="IpmDataModel.CashTransaction" Role="CashTransaction" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="PortfolioBalanceBook" BaseType="IpmDataModel.BalanceBook" >
+          <NavigationProperty Name="Portfolio" Relationship="IpmDataModel.PortfolioPortfolioBalanceBook" FromRole="PortfolioBalanceBook" ToRole="Portfolio" />
+        </EntityType>
+        <EntityType Name="AccountBalanceBook" BaseType="IpmDataModel.BalanceBook" >
+          <NavigationProperty Name="Account" Relationship="IpmDataModel.AccountAccountBalanceBook" FromRole="AccountBalanceBook" ToRole="Account" />
+        </EntityType>
+        <Association Name="PortfolioPortfolioBalanceBook">
+          <End Type="IpmDataModel.Portfolio" Role="Portfolio" Multiplicity="1" />
+          <End Type="IpmDataModel.PortfolioBalanceBook" Role="PortfolioBalanceBook" Multiplicity="1" />
+        </Association>
+        <Association Name="AccountAccountBalanceBook">
+          <End Type="IpmDataModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="IpmDataModel.AccountBalanceBook" Role="AccountBalanceBook" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IpmDataModelStoreContainer" CdmEntityContainer="IpmModel">
+    <EntitySetMapping Name="Assets">
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.Asset)">
+        <MappingFragment StoreEntitySet="Assets">
+          <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+          <ScalarProperty Name="TickerSymbol" ColumnName="TickerSymbol" />
+          <ScalarProperty Name="AssetName" ColumnName="AssetName" />
+          <ScalarProperty Name="DividendYield" ColumnName="DividendYield" />
+          <ScalarProperty Name="MER" ColumnName="MER" />
+          <ScalarProperty Name="LastMarketPrice" ColumnName="LastMarketPrice" />
+          <ScalarProperty Name="LastQuoteDate" ColumnName="LastQuoteDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssetInstances">
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.AssetInstance)">
+        <MappingFragment StoreEntitySet="AssetInstances">
+          <ScalarProperty Name="AssetInstanceId" ColumnName="AssetInstanceId" />
+          <ScalarProperty Name="BookCost" ColumnName="BookCost" />
+          <ScalarProperty Name="MarketPrice" ColumnName="MarketPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Portfolios">
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.Portfolio)">
+        <MappingFragment StoreEntitySet="Portfolios">
+          <ScalarProperty Name="PortfolioId" ColumnName="PortfolioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.Account)">
+        <MappingFragment StoreEntitySet="Accounts">
+          <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Currency" ColumnName="Currency" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BalanceBooks">
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.BalanceBook)">
+        <MappingFragment StoreEntitySet="BalanceBooks">
+          <ScalarProperty Name="BalanceBookId" ColumnName="BalanceBookId" />
+          <ScalarProperty Name="CashBalance" ColumnName="CashBalance" />
+          <ScalarProperty Name="AssetsBookCost" ColumnName="AssetsBookCost" />
+          <ScalarProperty Name="AssetsMarketPrice" ColumnName="AssetsMarketPrice" />
+          <ScalarProperty Name="Yield" ColumnName="Yield" />
+          <ScalarProperty Name="YieldPercent" ColumnName="YieldPercent" />
+          <ScalarProperty Name="Return" ColumnName="Return" />
+          <ScalarProperty Name="ReturnPercent" ColumnName="ReturnPercent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.PortfolioBalanceBook)">
+        <MappingFragment StoreEntitySet="BalanceBooks_PortfolioBalanceBook">
+          <ScalarProperty Name="BalanceBookId" ColumnName="BalanceBookId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.AccountBalanceBook)">
+        <MappingFragment StoreEntitySet="BalanceBooks_AccountBalanceBook">
+          <ScalarProperty Name="BalanceBookId" ColumnName="BalanceBookId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CashTransactions">
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.CashTransaction)">
+        <MappingFragment StoreEntitySet="CashTransactions">
+          <ScalarProperty Name="CashTransactionId" ColumnName="CashTransactionId" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="SettlementDate" ColumnName="SettlementDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="IsImported" ColumnName="IsImported" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssetTransactions">
+      <EntityTypeMapping TypeName="IsTypeOf(IpmDataModel.AssetTransaction)">
+        <MappingFragment StoreEntitySet="AssetTransactions">
+          <ScalarProperty Name="AssetTransactionId" ColumnName="AssetTransactionId" />
+          <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="SettlementDate" ColumnName="SettlementDate" />
+          <ScalarProperty Name="TickerSymbol" ColumnName="TickerSymbol" />
+          <ScalarProperty Name="AssetName" ColumnName="AssetName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Commission" ColumnName="Commission" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="IsImported" ColumnName="IsImported" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AccountCashTransaction" TypeName="IpmDataModel.AccountCashTransaction" StoreEntitySet="CashTransactions">
+      <EndProperty Name="Account">
+        <ScalarProperty Name="AccountId" ColumnName="Account_AccountId" />
+      </EndProperty>
+      <EndProperty Name="CashTransaction">
+        <ScalarProperty Name="CashTransactionId" ColumnName="CashTransactionId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PortfolioAccount" TypeName="IpmDataModel.PortfolioAccount" StoreEntitySet="Accounts">
+      <EndProperty Name="Portfolio">
+        <ScalarProperty Name="PortfolioId" ColumnName="Portfolio_PortfolioId" />
+      </EndProperty>
+      <EndProperty Name="Account">
+        <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AccountAssetTransaction" TypeName="IpmDataModel.AccountAssetTransaction" StoreEntitySet="AssetTransactions">
+      <EndProperty Name="Account">
+        <ScalarProperty Name="AccountId" ColumnName="Account_AccountId" />
+      </EndProperty>
+      <EndProperty Name="AssetTransaction">
+        <ScalarProperty Name="AssetTransactionId" ColumnName="AssetTransactionId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AssetAssetInstance" TypeName="IpmDataModel.AssetAssetInstance" StoreEntitySet="AssetInstances">
+      <EndProperty Name="Asset">
+        <ScalarProperty Name="AssetId" ColumnName="Asset_AssetId" />
+      </EndProperty>
+      <EndProperty Name="AssetInstance">
+        <ScalarProperty Name="AssetInstanceId" ColumnName="AssetInstanceId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AccountAssetInstance" TypeName="IpmDataModel.AccountAssetInstance" StoreEntitySet="AssetInstances">
+      <EndProperty Name="Account">
+        <ScalarProperty Name="AccountId" ColumnName="Account_AccountId" />
+      </EndProperty>
+      <EndProperty Name="AssetInstance">
+        <ScalarProperty Name="AssetInstanceId" ColumnName="AssetInstanceId" />
+      </EndProperty>
+      <Condition ColumnName="Account_AccountId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AssetInstanceAssetTransaction" TypeName="IpmDataModel.AssetInstanceAssetTransaction" StoreEntitySet="AssetTransactions">
+      <EndProperty Name="AssetInstance">
+        <ScalarProperty Name="AssetInstanceId" ColumnName="AssetInstance_AssetInstanceId" />
+      </EndProperty>
+      <EndProperty Name="AssetTransaction">
+        <ScalarProperty Name="AssetTransactionId" ColumnName="AssetTransactionId" />
+      </EndProperty>
+      <Condition ColumnName="AssetInstance_AssetInstanceId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AssetTransactionCashTransaction" TypeName="IpmDataModel.AssetTransactionCashTransaction" StoreEntitySet="CashTransactions">
+      <EndProperty Name="AssetTransaction">
+        <ScalarProperty Name="AssetTransactionId" ColumnName="AssetTransaction_AssetTransactionId" />
+      </EndProperty>
+      <EndProperty Name="CashTransaction">
+        <ScalarProperty Name="CashTransactionId" ColumnName="CashTransactionId" />
+      </EndProperty>
+      <Condition ColumnName="AssetTransaction_AssetTransactionId" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PortfolioPortfolioBalanceBook" TypeName="IpmDataModel.PortfolioPortfolioBalanceBook" StoreEntitySet="Portfolios">
+      <EndProperty Name="PortfolioBalanceBook">
+        <ScalarProperty Name="BalanceBookId" ColumnName="BalanceBook_BalanceBookId" />
+      </EndProperty>
+      <EndProperty Name="Portfolio">
+        <ScalarProperty Name="PortfolioId" ColumnName="PortfolioId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AccountAccountBalanceBook" TypeName="IpmDataModel.AccountAccountBalanceBook" StoreEntitySet="Accounts">
+      <EndProperty Name="AccountBalanceBook">
+        <ScalarProperty Name="BalanceBookId" ColumnName="BalanceBook_BalanceBookId" />
+      </EndProperty>
+      <EndProperty Name="Account">
+        <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,14 @@
+/// <summary>
+/// Buy or sell assets. This transaction type may or may not be linked to a cash transaction.
+/// </summary>
+BuySell, 
+
+/// <summary>
+/// Dividend payment. This transaction is always linked to cash transaction.
+/// </summary>
+Dividend, 
+
+/// <summary>
+/// Dividend reinvestment. This transaction same as buy transaction, but never linked to cash transaction.
+/// </summary>
+DividendReinvestment

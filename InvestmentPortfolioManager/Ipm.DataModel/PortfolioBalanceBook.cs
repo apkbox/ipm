@@ -12,16 +12,9 @@ namespace Ipm.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Portfolio
+    public partial class PortfolioBalanceBook : BalanceBook
     {
-        public Portfolio()
-        {
-            this.Accounts = new HashSet<Account>();
-        }
     
-        public int PortfolioId { get; set; }
-    
-        public virtual ICollection<Account> Accounts { get; set; }
-        public virtual PortfolioBalanceBook BalanceBook { get; set; }
+        public virtual Portfolio Portfolio { get; set; }
     }
 }

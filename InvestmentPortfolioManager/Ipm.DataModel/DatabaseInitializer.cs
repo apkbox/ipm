@@ -19,13 +19,12 @@ namespace Ipm.DataModel
         {
             var accountModel = new Account
                                    {
-                                       AccountId = Guid.NewGuid(), 
                                        Name = "TFSA", 
                                        Description = "TD TFSA Account CAD", 
                                        Currency = "CAD", 
                                    };
 
-            var portfolio = new Portfolio { PortfolioId = Guid.NewGuid() };
+            var portfolio = new Portfolio();
             portfolio.Accounts.Add(accountModel);
 
             var cashTransaction = new CashTransaction

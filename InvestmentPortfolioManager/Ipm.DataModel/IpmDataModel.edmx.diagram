@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b78c8bd213714b94af2be85a951ca20e" Name="ModelDiagram" DisplayType="true" ShowGrid="true" ZoomLevel="100" >
+        <EntityTypeShape EntityType="IpmDataModel.Asset" Width="1.875" PointX="3.625" PointY="7.625" />
+        <EntityTypeShape EntityType="IpmDataModel.AssetInstance" Width="2" PointX="6.25" PointY="7.625" />
+        <EntityTypeShape EntityType="IpmDataModel.Portfolio" Width="1.75" PointX="0.5" PointY="2.5" />
+        <EntityTypeShape EntityType="IpmDataModel.Account" Width="2" PointX="6.25" PointY="2.5" />
+        <EntityTypeShape EntityType="IpmDataModel.BalanceBook" Width="2.125" PointX="0.75" PointY="7" />
+        <EntityTypeShape EntityType="IpmDataModel.CashTransaction" Width="2" PointX="8.875" PointY="2.5" />
+        <AssociationConnector Association="IpmDataModel.AccountCashTransaction" />
+        <EntityTypeShape EntityType="IpmDataModel.AssetTransaction" Width="2.5" PointX="8.875" PointY="6" />
+        <AssociationConnector Association="IpmDataModel.PortfolioAccount" />
+        <AssociationConnector Association="IpmDataModel.AccountAssetTransaction" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="IpmDataModel.AssetAssetInstance" />
+        <AssociationConnector Association="IpmDataModel.AccountAssetInstance" />
+        <AssociationConnector Association="IpmDataModel.AssetInstanceAssetTransaction" />
+        <AssociationConnector Association="IpmDataModel.AssetTransactionCashTransaction" />
+        <EntityTypeShape EntityType="IpmDataModel.PortfolioBalanceBook" Width="1.5" PointX="0.625" PointY="5" />
+        <InheritanceConnector EntityType="IpmDataModel.PortfolioBalanceBook" />
+        <EntityTypeShape EntityType="IpmDataModel.AccountBalanceBook" Width="1.5" PointX="3" PointY="5" />
+        <InheritanceConnector EntityType="IpmDataModel.AccountBalanceBook" />
+        <AssociationConnector Association="IpmDataModel.PortfolioPortfolioBalanceBook" />
+        <AssociationConnector Association="IpmDataModel.AccountAccountBalanceBook" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
