@@ -29,8 +29,9 @@ namespace Ipm.DataModel
         public virtual DbSet<AssetInstance> AssetInstances { get; set; }
         public virtual DbSet<Portfolio> Portfolios { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<BalanceBook> BalanceBooks { get; set; }
         public virtual DbSet<CashTransaction> CashTransactions { get; set; }
         public virtual DbSet<AssetTransaction> AssetTransactions { get; set; }
+        public virtual DbSet<AccountBalanceBook> AccountBalanceBooks { get; set; }
+        public virtual DbSet<PortfolioBalanceBook> PortfolioBalanceBooks { get; set; }
     }
 }

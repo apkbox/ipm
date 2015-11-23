@@ -19,6 +19,7 @@ namespace Ipm.DataModel
             this.CashTransactions = new HashSet<CashTransaction>();
             this.AssetTransactions = new HashSet<AssetTransaction>();
             this.Assets = new HashSet<AssetInstance>();
+            this.BalanceBooks = new HashSet<AccountBalanceBook>();
         }
     
         public int AccountId { get; set; }
@@ -30,6 +31,6 @@ namespace Ipm.DataModel
         public virtual ICollection<CashTransaction> CashTransactions { get; set; }
         public virtual ICollection<AssetTransaction> AssetTransactions { get; set; }
         public virtual ICollection<AssetInstance> Assets { get; set; }
-        public virtual AccountBalanceBook BalanceBook { get; set; }
+        public virtual ICollection<AccountBalanceBook> BalanceBooks { get; set; }
     }
 }

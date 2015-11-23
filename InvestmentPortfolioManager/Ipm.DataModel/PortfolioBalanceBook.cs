@@ -12,8 +12,16 @@ namespace Ipm.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class PortfolioBalanceBook : BalanceBook
+    public partial class PortfolioBalanceBook
     {
+        public PortfolioBalanceBook()
+        {
+            this.BalanceBase = new BalanceBase();
+        }
+    
+        public int Id { get; set; }
+    
+        public BalanceBase BalanceBase { get; set; }
     
         public virtual Portfolio Portfolio { get; set; }
     }

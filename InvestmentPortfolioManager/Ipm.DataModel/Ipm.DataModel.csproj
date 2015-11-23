@@ -65,7 +65,7 @@
     <Compile Include="AssetTransaction.cs">
       <DependentUpon>IpmDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="BalanceBook.cs">
+    <Compile Include="BalanceBase.cs">
       <DependentUpon>IpmDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CashTransaction.cs">

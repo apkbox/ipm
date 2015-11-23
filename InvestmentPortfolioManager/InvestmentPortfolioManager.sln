@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ipm.DataModel", "Ipm.DataMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ipm.DataModel.Tests", "Ipm.DataModel.Tests\Ipm.DataModel.Tests.csproj", "{4C32E479-F9A5-47EB-ACE6-83E09D2C9DC3}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "IpmDatabaseModel", "IpmDatabaseModel\IpmDatabaseModel.sqlproj", "{994C7AAD-9547-473B-847B-44A522EB5ECF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,12 @@ Global
 		{4C32E479-F9A5-47EB-ACE6-83E09D2C9DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C32E479-F9A5-47EB-ACE6-83E09D2C9DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C32E479-F9A5-47EB-ACE6-83E09D2C9DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{994C7AAD-9547-473B-847B-44A522EB5ECF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{994C7AAD-9547-473B-847B-44A522EB5ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{994C7AAD-9547-473B-847B-44A522EB5ECF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{994C7AAD-9547-473B-847B-44A522EB5ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{994C7AAD-9547-473B-847B-44A522EB5ECF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{994C7AAD-9547-473B-847B-44A522EB5ECF}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

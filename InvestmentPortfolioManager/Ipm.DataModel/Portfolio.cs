@@ -17,11 +17,13 @@ namespace Ipm.DataModel
         public Portfolio()
         {
             this.Accounts = new HashSet<Account>();
+            this.BalanceBooks = new HashSet<PortfolioBalanceBook>();
         }
     
         public int PortfolioId { get; set; }
+        public string Name { get; set; }
     
         public virtual ICollection<Account> Accounts { get; set; }
-        public virtual PortfolioBalanceBook BalanceBook { get; set; }
+        public virtual ICollection<PortfolioBalanceBook> BalanceBooks { get; set; }
     }
 }

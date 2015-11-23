@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/18/2015 02:30:43
+-- Date Created: 11/23/2015 01:23:40
 -- Generated from EDMX file: D:\Projects\ipm\InvestmentPortfolioManager\Ipm.DataModel\IpmDataModel.edmx
 -- --------------------------------------------------
 
@@ -39,16 +39,10 @@ IF OBJECT_ID(N'[dbo].[FK_AssetTransactionCashTransaction]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CashTransactions] DROP CONSTRAINT [FK_AssetTransactionCashTransaction];
 GO
 IF OBJECT_ID(N'[dbo].[FK_PortfolioPortfolioBalanceBook]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Portfolios] DROP CONSTRAINT [FK_PortfolioPortfolioBalanceBook];
+    ALTER TABLE [dbo].[PortfolioBalanceBooks] DROP CONSTRAINT [FK_PortfolioPortfolioBalanceBook];
 GO
 IF OBJECT_ID(N'[dbo].[FK_AccountAccountBalanceBook]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountAccountBalanceBook];
-GO
-IF OBJECT_ID(N'[dbo].[FK_PortfolioBalanceBook_inherits_BalanceBook]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[BalanceBooks_PortfolioBalanceBook] DROP CONSTRAINT [FK_PortfolioBalanceBook_inherits_BalanceBook];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AccountBalanceBook_inherits_BalanceBook]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[BalanceBooks_AccountBalanceBook] DROP CONSTRAINT [FK_AccountBalanceBook_inherits_BalanceBook];
+    ALTER TABLE [dbo].[AccountBalanceBooks] DROP CONSTRAINT [FK_AccountAccountBalanceBook];
 GO
 
 -- --------------------------------------------------
@@ -67,20 +61,17 @@ GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
 GO
-IF OBJECT_ID(N'[dbo].[BalanceBooks]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[BalanceBooks];
-GO
 IF OBJECT_ID(N'[dbo].[CashTransactions]', 'U') IS NOT NULL
     DROP TABLE [dbo].[CashTransactions];
 GO
 IF OBJECT_ID(N'[dbo].[AssetTransactions]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AssetTransactions];
 GO
-IF OBJECT_ID(N'[dbo].[BalanceBooks_PortfolioBalanceBook]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[BalanceBooks_PortfolioBalanceBook];
+IF OBJECT_ID(N'[dbo].[AccountBalanceBooks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AccountBalanceBooks];
 GO
-IF OBJECT_ID(N'[dbo].[BalanceBooks_AccountBalanceBook]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[BalanceBooks_AccountBalanceBook];
+IF OBJECT_ID(N'[dbo].[PortfolioBalanceBooks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PortfolioBalanceBooks];
 GO
 
 -- --------------------------------------------------
@@ -105,14 +96,14 @@ CREATE TABLE [dbo].[AssetInstances] (
     [BookCost] decimal(18,0)  NOT NULL,
     [MarketPrice] decimal(18,0)  NOT NULL,
     [Asset_AssetId] int  NOT NULL,
-    [Account_AccountId] int  NULL
+    [Account_AccountId] int  NOT NULL
 );
 GO
 
 -- Creating table 'Portfolios'
 CREATE TABLE [dbo].[Portfolios] (
     [PortfolioId] int IDENTITY(1,1) NOT NULL,
-    [BalanceBook_BalanceBookId] int  NOT NULL
+    [Name] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -122,21 +113,7 @@ CREATE TABLE [dbo].[Accounts] (
     [Name] nvarchar(max)  NOT NULL,
     [Description] nvarchar(max)  NULL,
     [Currency] nvarchar(max)  NULL,
-    [Portfolio_PortfolioId] int  NOT NULL,
-    [BalanceBook_BalanceBookId] int  NOT NULL
-);
-GO
-
--- Creating table 'BalanceBooks'
-CREATE TABLE [dbo].[BalanceBooks] (
-    [BalanceBookId] int IDENTITY(1,1) NOT NULL,
-    [CashBalance] decimal(18,0)  NOT NULL,
-    [AssetsBookCost] decimal(18,0)  NOT NULL,
-    [AssetsMarketPrice] decimal(18,0)  NOT NULL,
-    [Yield] decimal(18,0)  NOT NULL,
-    [YieldPercent] decimal(18,0)  NOT NULL,
-    [Return] decimal(18,0)  NOT NULL,
-    [ReturnPercent] decimal(18,0)  NOT NULL
+    [Portfolio_PortfolioId] int  NOT NULL
 );
 GO
 
@@ -174,15 +151,33 @@ CREATE TABLE [dbo].[AssetTransactions] (
 );
 GO
 
--- Creating table 'BalanceBooks_PortfolioBalanceBook'
-CREATE TABLE [dbo].[BalanceBooks_PortfolioBalanceBook] (
-    [BalanceBookId] int  NOT NULL
+-- Creating table 'AccountBalanceBooks'
+CREATE TABLE [dbo].[AccountBalanceBooks] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [BalanceBase_CashBalance] decimal(18,0)  NOT NULL,
+    [BalanceBase_BalanceDate] datetime  NOT NULL,
+    [BalanceBase_AssetsBookCost] decimal(18,0)  NOT NULL,
+    [BalanceBase_AssetsMarketCost] decimal(18,0)  NOT NULL,
+    [BalanceBase_Yield] decimal(18,0)  NOT NULL,
+    [BalanceBase_YieldPercent] decimal(18,0)  NOT NULL,
+    [BalanceBase_Return] decimal(18,0)  NOT NULL,
+    [BalanceBase_ReturnPercent] decimal(18,0)  NOT NULL,
+    [Account_AccountId] int  NOT NULL
 );
 GO
 
--- Creating table 'BalanceBooks_AccountBalanceBook'
-CREATE TABLE [dbo].[BalanceBooks_AccountBalanceBook] (
-    [BalanceBookId] int  NOT NULL
+-- Creating table 'PortfolioBalanceBooks'
+CREATE TABLE [dbo].[PortfolioBalanceBooks] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [BalanceBase_CashBalance] decimal(18,0)  NOT NULL,
+    [BalanceBase_BalanceDate] datetime  NOT NULL,
+    [BalanceBase_AssetsBookCost] decimal(18,0)  NOT NULL,
+    [BalanceBase_AssetsMarketCost] decimal(18,0)  NOT NULL,
+    [BalanceBase_Yield] decimal(18,0)  NOT NULL,
+    [BalanceBase_YieldPercent] decimal(18,0)  NOT NULL,
+    [BalanceBase_Return] decimal(18,0)  NOT NULL,
+    [BalanceBase_ReturnPercent] decimal(18,0)  NOT NULL,
+    [Portfolio_PortfolioId] int  NOT NULL
 );
 GO
 
@@ -214,12 +209,6 @@ ADD CONSTRAINT [PK_Accounts]
     PRIMARY KEY CLUSTERED ([AccountId] ASC);
 GO
 
--- Creating primary key on [BalanceBookId] in table 'BalanceBooks'
-ALTER TABLE [dbo].[BalanceBooks]
-ADD CONSTRAINT [PK_BalanceBooks]
-    PRIMARY KEY CLUSTERED ([BalanceBookId] ASC);
-GO
-
 -- Creating primary key on [CashTransactionId] in table 'CashTransactions'
 ALTER TABLE [dbo].[CashTransactions]
 ADD CONSTRAINT [PK_CashTransactions]
@@ -232,16 +221,16 @@ ADD CONSTRAINT [PK_AssetTransactions]
     PRIMARY KEY CLUSTERED ([AssetTransactionId] ASC);
 GO
 
--- Creating primary key on [BalanceBookId] in table 'BalanceBooks_PortfolioBalanceBook'
-ALTER TABLE [dbo].[BalanceBooks_PortfolioBalanceBook]
-ADD CONSTRAINT [PK_BalanceBooks_PortfolioBalanceBook]
-    PRIMARY KEY CLUSTERED ([BalanceBookId] ASC);
+-- Creating primary key on [Id] in table 'AccountBalanceBooks'
+ALTER TABLE [dbo].[AccountBalanceBooks]
+ADD CONSTRAINT [PK_AccountBalanceBooks]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [BalanceBookId] in table 'BalanceBooks_AccountBalanceBook'
-ALTER TABLE [dbo].[BalanceBooks_AccountBalanceBook]
-ADD CONSTRAINT [PK_BalanceBooks_AccountBalanceBook]
-    PRIMARY KEY CLUSTERED ([BalanceBookId] ASC);
+-- Creating primary key on [Id] in table 'PortfolioBalanceBooks'
+ALTER TABLE [dbo].[PortfolioBalanceBooks]
+ADD CONSTRAINT [PK_PortfolioBalanceBooks]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -353,52 +342,34 @@ ON [dbo].[CashTransactions]
     ([AssetTransaction_AssetTransactionId]);
 GO
 
--- Creating foreign key on [BalanceBook_BalanceBookId] in table 'Portfolios'
-ALTER TABLE [dbo].[Portfolios]
+-- Creating foreign key on [Portfolio_PortfolioId] in table 'PortfolioBalanceBooks'
+ALTER TABLE [dbo].[PortfolioBalanceBooks]
 ADD CONSTRAINT [FK_PortfolioPortfolioBalanceBook]
-    FOREIGN KEY ([BalanceBook_BalanceBookId])
-    REFERENCES [dbo].[BalanceBooks_PortfolioBalanceBook]
-        ([BalanceBookId])
+    FOREIGN KEY ([Portfolio_PortfolioId])
+    REFERENCES [dbo].[Portfolios]
+        ([PortfolioId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_PortfolioPortfolioBalanceBook'
 CREATE INDEX [IX_FK_PortfolioPortfolioBalanceBook]
-ON [dbo].[Portfolios]
-    ([BalanceBook_BalanceBookId]);
+ON [dbo].[PortfolioBalanceBooks]
+    ([Portfolio_PortfolioId]);
 GO
 
--- Creating foreign key on [BalanceBook_BalanceBookId] in table 'Accounts'
-ALTER TABLE [dbo].[Accounts]
+-- Creating foreign key on [Account_AccountId] in table 'AccountBalanceBooks'
+ALTER TABLE [dbo].[AccountBalanceBooks]
 ADD CONSTRAINT [FK_AccountAccountBalanceBook]
-    FOREIGN KEY ([BalanceBook_BalanceBookId])
-    REFERENCES [dbo].[BalanceBooks_AccountBalanceBook]
-        ([BalanceBookId])
+    FOREIGN KEY ([Account_AccountId])
+    REFERENCES [dbo].[Accounts]
+        ([AccountId])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_AccountAccountBalanceBook'
 CREATE INDEX [IX_FK_AccountAccountBalanceBook]
-ON [dbo].[Accounts]
-    ([BalanceBook_BalanceBookId]);
-GO
-
--- Creating foreign key on [BalanceBookId] in table 'BalanceBooks_PortfolioBalanceBook'
-ALTER TABLE [dbo].[BalanceBooks_PortfolioBalanceBook]
-ADD CONSTRAINT [FK_PortfolioBalanceBook_inherits_BalanceBook]
-    FOREIGN KEY ([BalanceBookId])
-    REFERENCES [dbo].[BalanceBooks]
-        ([BalanceBookId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [BalanceBookId] in table 'BalanceBooks_AccountBalanceBook'
-ALTER TABLE [dbo].[BalanceBooks_AccountBalanceBook]
-ADD CONSTRAINT [FK_AccountBalanceBook_inherits_BalanceBook]
-    FOREIGN KEY ([BalanceBookId])
-    REFERENCES [dbo].[BalanceBooks]
-        ([BalanceBookId])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+ON [dbo].[AccountBalanceBooks]
+    ([Account_AccountId]);
 GO
 
 -- --------------------------------------------------

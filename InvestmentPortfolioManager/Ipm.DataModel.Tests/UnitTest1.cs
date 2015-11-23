@@ -27,15 +27,22 @@ namespace Ipm.DataModel.Tests
         #region Public Methods and Operators
 
         [TestMethod]
+        public void CreatePortfolioMethod()
+        {
+            var pf = this.model.Portfolios.Add(new Portfolio() { Name = "Test Portfolio" });
+            Assert.IsNotNull(pf);
+            Assert.AreEqual(pf.Name, "Test Portfolio");
+        }
+
+        [TestMethod]
         public void CreateAccount()
         {
-            var portfolio = new Portfolio { BalanceBook = new PortfolioBalanceBook() };
+            var portfolio = new Portfolio { Name = "Test Portfolio" };
             var account = new Account
             {
                 Name = "TD TFSA",
                 Description = "TD TFSA Account CAD",
                 Currency = "CAD",
-                BalanceBook = new AccountBalanceBook()
             };
             portfolio.Accounts.Add(account);
             this.model.Portfolios.Add(portfolio);
@@ -45,13 +52,12 @@ namespace Ipm.DataModel.Tests
         [TestMethod]
         public void CreateBuyTransactions()
         {
-            var portfolio = new Portfolio { BalanceBook = new PortfolioBalanceBook() };
+            var portfolio = new Portfolio { Name = "Test Portfolio" };
             var account = new Account
             {
                 Name = "TD TFSA",
                 Description = "TD TFSA Account CAD",
                 Currency = "CAD",
-                BalanceBook = new AccountBalanceBook()
             };
             portfolio.Accounts.Add(account);
             this.model.Portfolios.Add(portfolio);
@@ -99,20 +105,19 @@ namespace Ipm.DataModel.Tests
         [TestMethod]
         public void CreatePortfolio()
         {
-            this.model.Portfolios.Add(new Portfolio { BalanceBook = new PortfolioBalanceBook() });
+            this.model.Portfolios.Add(new Portfolio { Name = "Test Portfolio" });
             this.model.SaveChanges();
         }
 
         [TestMethod]
         public void CreateTradeTransactions()
         {
-            var portfolio = new Portfolio { BalanceBook = new PortfolioBalanceBook() };
+            var portfolio = new Portfolio { Name = "Test Portfolio" };
             var account = new Account
                               {
                                   Name = "TD TFSA",
                                   Description = "TD TFSA Account CAD",
                                   Currency = "CAD",
-                                  BalanceBook = new AccountBalanceBook()
                               };
             portfolio.Accounts.Add(account);
             this.model.Portfolios.Add(portfolio);
