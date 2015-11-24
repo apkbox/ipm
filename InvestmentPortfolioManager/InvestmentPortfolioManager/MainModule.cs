@@ -41,7 +41,9 @@ namespace InvestmentPortfolioManager
 
         public void Initialize()
         {
+            this.regionManager.RegisterViewWithRegion("MainRegion", typeof(HomeScreenView));
             this.regionManager.RegisterViewWithRegion("MainRegion", typeof(PortfolioSummaryView));
+            this.unityContainer.RegisterType<PortfolioSummaryView>("PortfolioSummary");
         }
 
         #endregion

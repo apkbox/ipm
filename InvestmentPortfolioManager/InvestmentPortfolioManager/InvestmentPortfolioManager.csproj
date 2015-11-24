@@ -37,6 +37,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Fluent">
       <HintPath>..\packages\Fluent.Ribbon.3.6.0.221\lib\net45\Fluent.dll</HintPath>
     </Reference>
@@ -77,6 +83,7 @@
       <HintPath>..\packages\RibbonControlsLibrary.4.0.0\lib\net40\RibbonControlsLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Fluent.Ribbon.3.6.0.221\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -130,13 +137,21 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\HomeScreenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PortfolioSummaryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\HomeScreenViewModel.cs" />
     <Compile Include="ViewModels\PortfolioSummaryViewModel.cs" />
+    <Compile Include="Views\HomeScreenView.xaml.cs">
+      <DependentUpon>HomeScreenView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PortfolioSummaryView.xaml.cs">
       <DependentUpon>PortfolioSummaryView.xaml</DependentUpon>
     </Compile>
@@ -164,6 +179,12 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ipm.DataModel\Ipm.DataModel.csproj">
+      <Project>{1BA7E5B7-112C-403F-AD71-3BCFEB35BECD}</Project>
+      <Name>Ipm.DataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -10,7 +10,7 @@
              xmlns:oxyPlot="clr-namespace:OxyPlot;assembly=OxyPlot"
              mc:Ignorable="d" 
              d:DesignHeight="528" d:DesignWidth="909"
-             d:DataContext="{d:DesignInstance vm:PortfolioSummaryViewModel}"
+             d:DataContext="{d:DesignInstance vm:PortfolioSummaryViewModel, IsDesignTimeCreatable=False}"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <Grid.RowDefinitions>
@@ -18,11 +18,11 @@
             <RowDefinition Height="89*"/>
             <RowDefinition Height="149*"/>
         </Grid.RowDefinitions>
-        <TextBlock Margin="0,10" Text="Portfolio Name" FontSize="24" HorizontalAlignment="Center" Width="162"/>
+        <TextBlock Margin="0,10" Text="{Binding PortfolioName}" FontSize="24" HorizontalAlignment="Center" Width="162"/>
 
         <oxy:PlotView Grid.Row="1" Margin="10">
         </oxy:PlotView>
-        <xcdg:DataGridControl Margin="10" Grid.Row="2" ItemsSource="{Binding Accounts[0]}">
+        <xcdg:DataGridControl Margin="10" Grid.Row="2">
         </xcdg:DataGridControl>
 
     </Grid>
