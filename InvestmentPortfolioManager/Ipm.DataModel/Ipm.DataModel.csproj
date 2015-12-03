@@ -106,6 +106,7 @@
       <DependentUpon>IpmDataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DatabaseInitializer.cs" />
+    <Compile Include="IpmDataModel.Views.cs" />
     <Compile Include="IpmDataModelModule.cs" />
     <Compile Include="Portfolio.cs">
       <DependentUpon>IpmDataModel.tt</DependentUpon>

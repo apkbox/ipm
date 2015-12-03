@@ -8,50 +8,31 @@
 // --------------------------------------------------------------------------------
 namespace Ipm.Model
 {
-    using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
 
     public class PortfolioModel
     {
-        #region Fields
-
-        private readonly Collection<AccountModel> accounts = new Collection<AccountModel>();
-
-        #endregion
-
         #region Constructors and Destructors
 
         public PortfolioModel()
         {
-            var account = new AccountModel()
-                              {
-                                  // Cash = new Currency { CurrencyCode = CurrencyCode.CAD, Amount = 100000 }
-                              };
-            var asset = new AssetModel
-                            {
-                                AssetCurrency = CurrencyCode.CAD, 
-                                Ticker = "MSFT", 
-                                Desciption = "Microsoft Corporation", 
-                                LastPrice = new decimal(56.33), 
-                                LastPriceTimestamp = DateTime.Now, 
-                                Quantity = 500
-                            };
-
-            account.Assets.Add(asset);
+            this.Accounts = new HashSet<AccountModel>();
+            this.BalanceBooks = new HashSet<PortfolioBalanceBookModel>();
         }
 
         #endregion
 
         #region Public Properties
 
-        public IList<AccountModel> Accounts
-        {
-            get
-            {
-                return this.accounts;
-            }
-        }
+        public ICollection<AccountModel> Accounts { get; set; }
+
+        public ICollection<PortfolioBalanceBookModel> BalanceBooks { get; set; }
+
+        public string Name { get; set; }
+
+        [Key]
+        public int PortfolioId { get; set; }
 
         #endregion
     }

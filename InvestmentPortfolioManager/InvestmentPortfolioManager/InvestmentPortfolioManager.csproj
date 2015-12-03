@@ -131,7 +131,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="RoutedCommandBehavior.cs" />
+    <Compile Include="RoutedRelayCommand.cs" />
+    <Compile Include="ViewModelCollection.cs" />
     <Compile Include="IpmBootstrapper.cs" />
+    <Compile Include="IViewModel.cs" />
+    <Compile Include="IViewModelProvider.cs" />
     <Compile Include="MainModule.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -147,6 +152,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModelCommandBinding.cs" />
+    <Compile Include="ViewModelCommandBindingCollection.cs" />
+    <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\HomeScreenViewModel.cs" />
     <Compile Include="ViewModels\PortfolioSummaryViewModel.cs" />
     <Compile Include="Views\HomeScreenView.xaml.cs">
