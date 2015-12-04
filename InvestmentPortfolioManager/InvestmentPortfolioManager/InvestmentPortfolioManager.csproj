@@ -132,7 +132,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RoutedCommandBehavior.cs" />
-    <Compile Include="RoutedRelayCommand.cs" />
+    <Compile Include="RoutedCommands.cs" />
     <Compile Include="ViewModelCollection.cs" />
     <Compile Include="IpmBootstrapper.cs" />
     <Compile Include="IViewModel.cs" />
@@ -142,6 +142,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AccountSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,9 +158,13 @@
   <ItemGroup>
     <Compile Include="ViewModelCommandBinding.cs" />
     <Compile Include="ViewModelCommandBindingCollection.cs" />
+    <Compile Include="ViewModels\AccountSummaryViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\HomeScreenViewModel.cs" />
     <Compile Include="ViewModels\PortfolioSummaryViewModel.cs" />
+    <Compile Include="Views\AccountSummaryView.xaml.cs">
+      <DependentUpon>AccountSummaryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeScreenView.xaml.cs">
       <DependentUpon>HomeScreenView.xaml</DependentUpon>
     </Compile>

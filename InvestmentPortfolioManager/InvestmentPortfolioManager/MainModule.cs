@@ -8,6 +8,7 @@
 // --------------------------------------------------------------------------------
 namespace InvestmentPortfolioManager
 {
+    using InvestmentPortfolioManager.ViewModels;
     using InvestmentPortfolioManager.Views;
 
     using Microsoft.Practices.Unity;
@@ -42,8 +43,14 @@ namespace InvestmentPortfolioManager
         public void Initialize()
         {
             this.regionManager.RegisterViewWithRegion("MainRegion", typeof(HomeScreenView));
+
             this.regionManager.RegisterViewWithRegion("MainRegion", typeof(PortfolioSummaryView));
             this.unityContainer.RegisterType<PortfolioSummaryView>("PortfolioSummary");
+            this.unityContainer.RegisterType<PortfolioSummaryViewModel>();
+            
+            this.regionManager.RegisterViewWithRegion("MainRegion", typeof(AccountSummaryView));
+            this.unityContainer.RegisterType<AccountSummaryView>("AccountSummary");
+            this.unityContainer.RegisterType<AccountSummaryViewModel>();
         }
 
         #endregion

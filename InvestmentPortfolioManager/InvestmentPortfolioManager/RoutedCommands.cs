@@ -1,18 +1,21 @@
 ﻿// --------------------------------------------------------------------------------
-// <copyright file="RoutedRelayCommand.cs" company="Alex Kozlov">
+// <copyright file="RoutedCommands.cs" company="Alex Kozlov">
 //   Copyright (c) Alex Kozlov. All rights reserved.
 // </copyright>
 // <summary>
-//   Defines the RoutedRelayCommand type.
+//   Defines the RoutedCommands type.
 // </summary>
 // --------------------------------------------------------------------------------
 namespace InvestmentPortfolioManager
 {
-    using System.Windows;
     using System.Windows.Input;
 
-    public class RoutedRelayCommand : DependencyObject
+    public class RoutedCommands
     {
-        public static RoutedCommand OpenAccountCommand = new RoutedCommand();
+        #region Static Fields
+
+        public static readonly RoutedCommand OpenAccountCommand = new RoutedCommand();
+
+        #endregion
     }
 }

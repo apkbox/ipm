@@ -3,11 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:mvvm="http://prismlibrary.com/"
              xmlns:vm="clr-namespace:InvestmentPortfolioManager.ViewModels"
              xmlns:oxy="http://oxyplot.org/wpf"
-             xmlns:oxyPlot="clr-namespace:OxyPlot;assembly=OxyPlot"
              xmlns:ipm="clr-namespace:InvestmentPortfolioManager"
              mc:Ignorable="d" 
              d:DesignHeight="528" d:DesignWidth="909"
@@ -23,11 +21,11 @@
 
         <ListView Margin="10" Grid.Row="1" ItemsSource="{Binding Accounts}">
             <ipm:RoutedCommandBehavior.CommandBindings>
-                    <ipm:ViewModelCommandBinding RoutedCommand="{x:Static ipm:RoutedRelayCommand.OpenAccountCommand}"
+                    <ipm:ViewModelCommandBinding RoutedCommand="{x:Static ipm:RoutedCommands.OpenAccountCommand}"
                                                  ViewModelCommand="{Binding OpenAccountCommand}"/>
             </ipm:RoutedCommandBehavior.CommandBindings>
             <ListView.View>
-                <GridView>
+                <GridView d:DataContext="{d:DesignInstance vm:AccountViewModel}">
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"/>
                     <GridViewColumn Header="Currency" DisplayMemberBinding="{Binding Currency}"/>
@@ -35,7 +33,8 @@
                     <GridViewColumn Header="Open...">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Open..." Command="{x:Static ipm:RoutedRelayCommand.OpenAccountCommand}">
+                                <Button Content="Open..." Command="{x:Static ipm:RoutedCommands.OpenAccountCommand}"
+                                        CommandParameter="{Binding Model.AccountId}">
                                 </Button>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

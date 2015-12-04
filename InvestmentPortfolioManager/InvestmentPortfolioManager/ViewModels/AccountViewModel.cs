@@ -18,33 +18,18 @@ namespace InvestmentPortfolioManager.ViewModels
     {
         #region Public Properties
 
-        public Account Model { get; set; }
-
-        public string Name
+        public decimal CashBalance
         {
             get
             {
-                return this.Model.Name;
-            }
+                var accountBalanceBook =
+                    this.Model.BalanceBooks.OrderByDescending(b => b.BalanceBase.BalanceDate).FirstOrDefault();
+                if (accountBalanceBook != null)
+                {
+                    return accountBalanceBook.BalanceBase.CashBalance;
+                }
 
-            set
-            {
-                this.Model.Name = value;
-                this.OnPropertyChanged(() => this.Name);
-            }
-        }
-
-        public string Description
-        {
-            get
-            {
-                return this.Model.Description;
-            }
-
-            set
-            {
-                this.Model.Description = value;
-                this.OnPropertyChanged(() => this.Description);
+                return 0;
             }
         }
 
@@ -62,17 +47,33 @@ namespace InvestmentPortfolioManager.ViewModels
             }
         }
 
-        public decimal CashBalance
+        public string Description
         {
             get
             {
-                var accountBalanceBook = this.Model.BalanceBooks.OrderByDescending(b => b.BalanceBase.BalanceDate).FirstOrDefault();
-                if (accountBalanceBook != null)
-                {
-                    return accountBalanceBook.BalanceBase.CashBalance;
-                }
+                return this.Model.Description;
+            }
 
-                return 0;
+            set
+            {
+                this.Model.Description = value;
+                this.OnPropertyChanged(() => this.Description);
+            }
+        }
+
+        public Account Model { get; set; }
+
+        public string Name
+        {
+            get
+            {
+                return this.Model != null ? this.Model.Name : string.Empty;
+            }
+
+            set
+            {
+                this.Model.Name = value;
+                this.OnPropertyChanged(() => this.Name);
             }
         }
 
