@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ipm.Model", "Ipm.Model\Ipm.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ipm.Model.Tests", "Ipm.Model.Tests\Ipm.Model.Tests.csproj", "{CAC351D2-8105-4BD0-B4A4-D118EEC67434}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IpmUI", "IpmUI\IpmUI.csproj", "{5321B7B5-34A2-41B8-A99B-7430542E8CDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{CAC351D2-8105-4BD0-B4A4-D118EEC67434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAC351D2-8105-4BD0-B4A4-D118EEC67434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAC351D2-8105-4BD0-B4A4-D118EEC67434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5321B7B5-34A2-41B8-A99B-7430542E8CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5321B7B5-34A2-41B8-A99B-7430542E8CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5321B7B5-34A2-41B8-A99B-7430542E8CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5321B7B5-34A2-41B8-A99B-7430542E8CDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
