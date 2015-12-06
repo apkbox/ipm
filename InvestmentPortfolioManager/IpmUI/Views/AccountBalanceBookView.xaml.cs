@@ -18,9 +18,9 @@ namespace IpmUI.Views
     /// <summary>
     /// Interaction logic for BalanceBookView.xaml
     /// </summary>
-    public partial class BalanceBookView : UserControl
+    public partial class AccountBalanceBookView : UserControl
     {
-        public BalanceBookView()
+        public AccountBalanceBookView()
         {
             InitializeComponent();
         }

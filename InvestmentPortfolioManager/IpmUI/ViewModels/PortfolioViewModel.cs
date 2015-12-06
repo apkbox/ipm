@@ -9,11 +9,12 @@
 namespace IpmUI.ViewModels
 {
     using System.Collections.ObjectModel;
-    using System.Data.Entity;
     using System.Linq;
+    using System.Windows.Input;
 
     using Ipm.Model;
 
+    using Prism.Commands;
     using Prism.Mvvm;
     using Prism.Regions;
 
@@ -26,17 +27,23 @@ namespace IpmUI.ViewModels
 
         private readonly IpmEntityModel entityModel;
 
-        private NewAccountEntryViewModel newAccountEntryViewModel;
+        private readonly DelegateCommand<int?> openAccountCommand;
 
-        private Portfolio portfolio;
+        private readonly IRegionManager regionManager;
+
+        private Portfolio model;
+
+        private NewAccountEntryViewModel newAccountEntryViewModel;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public PortfolioViewModel(IpmEntityModel entityModel)
+        public PortfolioViewModel(IpmEntityModel entityModel, IRegionManager regionManager)
         {
             this.entityModel = entityModel;
+            this.regionManager = regionManager;
+            this.openAccountCommand = new DelegateCommand<int?>(this.ExecuteOpenAccount);
         }
 
         #endregion
@@ -55,9 +62,9 @@ namespace IpmUI.ViewModels
         {
             get
             {
-                if (this.portfolio != null)
+                if (this.model != null)
                 {
-                    return this.portfolio.Name;
+                    return this.model.Name;
                 }
 
                 return string.Empty;
@@ -65,11 +72,19 @@ namespace IpmUI.ViewModels
 
             set
             {
-                if (this.portfolio != null)
+                if (this.model != null)
                 {
-                    this.portfolio.Name = value;
+                    this.model.Name = value;
                     this.OnPropertyChanged(() => this.Name);
                 }
+            }
+        }
+
+        public ICommand OpenAccountCommand
+        {
+            get
+            {
+                return this.openAccountCommand;
             }
         }
 
@@ -91,7 +106,7 @@ namespace IpmUI.ViewModels
             var portfolioId = (int?)navigationContext.Parameters["PortfolioId"];
             if (portfolioId != null)
             {
-                this.SetPortfolio((int)portfolioId);
+                this.SetModel((int)portfolioId);
             }
         }
 
@@ -110,7 +125,7 @@ namespace IpmUI.ViewModels
                 out startingBalance);
 
             var newModel = this.entityModel.CreateAccount(
-                this.portfolio.PortfolioId, 
+                this.model.PortfolioId, 
                 accountModel.Name, 
                 accountModel.Description, 
                 accountModel.Currency, 
@@ -124,9 +139,19 @@ namespace IpmUI.ViewModels
             return true;
         }
 
-        private void SetPortfolio(int portfolioId)
+        private void ExecuteOpenAccount(int? accountId)
         {
-            this.portfolio = this.entityModel.GetPorfolio(portfolioId);
+            var parameters = new NavigationParameters
+                                 {
+                                     { "AccountId", accountId }
+                                 };
+
+            this.regionManager.RequestNavigate(RegionNames.MainRegion, ViewNames.AccountView, parameters);
+        }
+
+        private void SetModel(int portfolioId)
+        {
+            this.model = this.entityModel.GetPorfolio(portfolioId);
             this.accounts.Clear();
 
             var viewModels =

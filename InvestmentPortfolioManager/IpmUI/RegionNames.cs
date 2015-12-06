@@ -12,6 +12,8 @@ namespace IpmUI
     {
         #region Constants
 
+        public const string AccountDetailsRegion = "AccountDetails";
+
         public const string MainRegion = "MainRegion";
 
         #endregion

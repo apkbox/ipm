@@ -12,6 +12,8 @@ namespace IpmUI
     {
         #region Static Fields
 
+        public static readonly string AccountBalanceBookView = "AccountBalanceBookView";
+
         public static readonly string AccountView = "AccountView";
 
         public static readonly string HomeView = "HomeView";

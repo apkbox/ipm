@@ -71,7 +71,11 @@
                             Margin="10"
                             Width="300" Height="100" BorderBrush="Black" BorderThickness="1" />
 
-                    <Button Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3"
+                    <Button x:Name="OpenAccountButton"
+                            Command="{Binding DataContext.OpenAccountCommand, 
+                                              RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                            CommandParameter="{Binding Model.Id}"
+                            Grid.Row="2" Grid.Column="5" Grid.ColumnSpan="3"
                             Margin="10,2"
                             Padding="10,4"
                             FontSize="16"
@@ -83,7 +87,6 @@
             </Border>
         </DataTemplate>
     </UserControl.Resources>
-
 
     <Grid Grid.IsSharedSizeScope="False">
         <Grid.RowDefinitions>

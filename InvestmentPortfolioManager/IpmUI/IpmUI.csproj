@@ -96,13 +96,9 @@
     <Compile Include="Module.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="RoutedCommands.cs" />
-    <Compile Include="SampleData\HomeViewSampleData\HomeViewSampleData.xaml.cs">
-      <DependentUpon>HomeViewSampleData.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SampleData\PortfolioSummarySampleData\PortfolioSummarySampleData.xaml.cs">
-      <DependentUpon>PortfolioSummarySampleData.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModels\AccountBalanceBookViewModel.cs" />
     <Compile Include="ViewModels\AccountEntryViewModel.cs" />
+    <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\NewAccountEntryViewModel.cs" />
     <Compile Include="ViewModels\PortfolioEntryViewModel.cs" />
@@ -114,8 +110,8 @@
     <Compile Include="Views\AssetTransactionsView.xaml.cs">
       <DependentUpon>AssetTransactionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BalanceBookView.xaml.cs">
-      <DependentUpon>BalanceBookView.xaml</DependentUpon>
+    <Compile Include="Views\AccountBalanceBookView.xaml.cs">
+      <DependentUpon>AccountBalanceBookView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CashTransactionsView.xaml.cs">
       <DependentUpon>CashTransactionsView.xaml</DependentUpon>
@@ -141,14 +137,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SampleData\HomeViewSampleData\HomeViewSampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SampleData\PortfolioSummarySampleData\PortfolioSummarySampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\AccountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,7 +145,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BalanceBookView.xaml">
+    <Page Include="Views\AccountBalanceBookView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,12 +193,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <DesignTimeOnly Include="SampleData\HomeViewSampleData\HomeViewSampleData.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <DesignTimeOnly Include="SampleData\PortfolioSummarySampleData\PortfolioSummarySampleData.xsd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ipm.Model\Ipm.Model.csproj">

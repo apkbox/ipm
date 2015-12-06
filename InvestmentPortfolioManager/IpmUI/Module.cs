@@ -44,7 +44,14 @@ namespace IpmUI
             this.RegisterView<HomeView>(ViewNames.HomeView, RegionNames.MainRegion);
             this.RegisterView<PortfolioView>(ViewNames.PortfolioView, RegionNames.MainRegion);
             this.RegisterView<AccountView>(ViewNames.AccountView, RegionNames.MainRegion);
+            this.RegisterView<AccountBalanceBookView>(
+                ViewNames.AccountBalanceBookView, 
+                RegionNames.AccountDetailsRegion);
         }
+
+        #endregion
+
+        #region Methods
 
         private void RegisterView<T>(string viewName, string regionName)
         {
