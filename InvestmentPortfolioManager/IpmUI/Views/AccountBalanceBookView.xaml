@@ -3,11 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModels="clr-namespace:IpmUI.ViewModels"
+             xmlns:vm="clr-namespace:IpmUI.ViewModels"
              xmlns:mvvm="http://prismlibrary.com/"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance viewModels:AccountBalanceBookViewModel, IsDesignTimeCreatable=False}"
+             d:DataContext="{d:DesignInstance vm:AccountBalanceBookViewModel, IsDesignTimeCreatable=False}"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <Grid.RowDefinitions>
@@ -35,28 +35,29 @@
             <TextBlock Grid.Column="7">Amount</TextBlock>
         </Grid>
         <ItemsControl Grid.Row="1"
-                      ItemsSource="{Binding SideBySideTransactions}">
+                      ItemsSource="{Binding SideBySideTransactions}"
+                      Grid.IsSharedSizeScope="True">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{Binding Path=ColumnDefinitions[0].ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
-                            <ColumnDefinition Width="{Binding Path=ColumnDefinitions[1].ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
-                            <ColumnDefinition Width="{Binding Path=ColumnDefinitions[2].ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
-                            <ColumnDefinition Width="{Binding Path=ColumnDefinitions[3].ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
-                            <ColumnDefinition Width="{Binding Path=ColumnDefinitions[4].ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
-                            <ColumnDefinition Width="{Binding Path=ColumnDefinitions[5].ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
-                            <ColumnDefinition Width="{Binding Path=ColumnDefinitions[6].ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
-                            <ColumnDefinition Width="{Binding Path=ColumnDefinitions[7].ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Grid}}}"/>
+                            <ColumnDefinition SharedSizeGroup="Column0" />
+                            <ColumnDefinition SharedSizeGroup="Column1" />
+                            <ColumnDefinition SharedSizeGroup="Column2" />
+                            <ColumnDefinition SharedSizeGroup="Column3" />
+                            <ColumnDefinition SharedSizeGroup="Column4" />
+                            <ColumnDefinition SharedSizeGroup="Column5" />
+                            <ColumnDefinition SharedSizeGroup="Column6" />
+                            <ColumnDefinition SharedSizeGroup="Column7" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0">2015-OCT-03</TextBlock>
-                        <TextBlock Grid.Column="1">Comment very very long</TextBlock>
-                        <TextBlock Grid.Column="2" Text="{Binding}"/>
-                        <TextBlock Grid.Column="3">L</TextBlock>
-                        <TextBlock Grid.Column="4">BUY</TextBlock>
-                        <TextBlock Grid.Column="5">12440</TextBlock>
-                        <TextBlock Grid.Column="6">$2322.35</TextBlock>
-                        <TextBlock Grid.Column="7">$232,434,432.00</TextBlock>
+                        <TextBlock Text="{Binding TransactionDate}" Grid.Column="0"/>
+                        <TextBlock Text="{Binding CashTransaction.Description}" Grid.Column="1"/>
+                        <TextBlock Text="{Binding CashTransaction.Amount}" Grid.Column="2"/>
+                        <TextBlock Text="Dir" Grid.Column="3"/>
+                        <TextBlock Text="{Binding AssetTransaction.TransactionType}" Grid.Column="4"/>
+                        <TextBlock Text="{Binding AssetTransaction.Quantity}" Grid.Column="5"/>
+                        <TextBlock Text="{Binding AssetTransaction.Price}" Grid.Column="6"/>
+                        <TextBlock Text="{Binding AssetTransaction.Amount}" Grid.Column="7"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -9,6 +9,7 @@
 namespace IpmUI.ViewModels
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
 
     using Ipm.Model;
@@ -23,6 +24,9 @@ namespace IpmUI.ViewModels
         private readonly IpmEntityModel entityModel;
 
         private readonly IRegionManager regionManager;
+
+        private readonly ObservableCollection<SideBySideTransactionViewModel> sideBySideTransactions =
+            new ObservableCollection<SideBySideTransactionViewModel>();
 
         private Account model;
 
@@ -40,29 +44,11 @@ namespace IpmUI.ViewModels
 
         #region Public Properties
 
-        public ICollection<int> SideBySideTransactions
+        public ICollection<SideBySideTransactionViewModel> SideBySideTransactions
         {
             get
             {
-                return new List<int>
-                           {
-                               1, 
-                               2, 
-                               3, 
-                               4, 
-                               5, 
-                               6, 
-                               56, 
-                               546, 
-                               546, 
-                               45, 
-                               66, 
-                               45, 
-                               56, 
-                               456, 
-                               456, 
-                               54
-                           };
+                return this.sideBySideTransactions;
             }
         }
 
@@ -96,7 +82,20 @@ namespace IpmUI.ViewModels
         {
             this.model = this.entityModel.Accounts.Find(accountId);
 
-            // TODO: Here we need to create a full outer join across Cash and Asset transactions.
+            var cashOnly = this.model.CashTransactions.Where(t => t.AssetTransaction == null).Select(
+                t => new SideBySideTransactionViewModel { CashTransaction = t, TransactionDate = t.TransactionDate });
+
+            var assetsAndCash = this.model.AssetTransactions.Select(
+                assetTransaction => new SideBySideTransactionViewModel
+                                        {
+                                            CashTransaction = assetTransaction.CashTransaction, 
+                                            AssetTransaction = assetTransaction, 
+                                            TransactionDate = assetTransaction.TransactionDate
+                                        });
+
+            this.sideBySideTransactions.Clear();
+            this.sideBySideTransactions.AddRange(cashOnly.Concat(assetsAndCash).OrderBy(t => t.TransactionDate));
+
             this.OnPropertyChanged(string.Empty);
         }
 

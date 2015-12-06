@@ -49,7 +49,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Button Command="{Binding ShowBalanceBookCommand}" Grid.Row="0">Balance book</Button>
+            <Button Command="{Binding ShowBalanceBookCommand}"
+                    CommandParameter="{Binding Model.Id}"
+                    Grid.Row="0">Balance book</Button>
             <Button Grid.Row="2">Cash transactions</Button>
             <Button Grid.Row="4">Asset transactions</Button>
 

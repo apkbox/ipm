@@ -101,8 +101,10 @@
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\NewAccountEntryViewModel.cs" />
+    <Compile Include="ViewModels\NewTransactionViewModel.cs" />
     <Compile Include="ViewModels\PortfolioEntryViewModel.cs" />
     <Compile Include="ViewModels\PortfolioViewModel.cs" />
+    <Compile Include="ViewModels\SideBySideTransactionViewModel.cs" />
     <Compile Include="ViewNames.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
@@ -121,6 +123,9 @@
     </Compile>
     <Compile Include="Views\NewAccountPanel.xaml.cs">
       <DependentUpon>NewAccountPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewTransactionView.xaml.cs">
+      <DependentUpon>NewTransactionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PortfolioView.xaml.cs">
       <DependentUpon>PortfolioView.xaml</DependentUpon>
@@ -160,6 +165,10 @@
     <Page Include="Views\NewAccountPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NewTransactionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PortfolioView.xaml">
       <SubType>Designer</SubType>

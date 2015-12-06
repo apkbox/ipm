@@ -24,7 +24,7 @@ namespace IpmUI.ViewModels
 
         private readonly IRegionManager regionManager;
 
-        private readonly DelegateCommand showBalanceBookCommand;
+        private readonly DelegateCommand<int?> showBalanceBookCommand;
 
         private Account model;
 
@@ -36,7 +36,7 @@ namespace IpmUI.ViewModels
         {
             this.entityModel = entityModel;
             this.regionManager = regionManager;
-            this.showBalanceBookCommand = new DelegateCommand(this.ExecuteShowBalanceBook);
+            this.showBalanceBookCommand = new DelegateCommand<int?>(this.ExecuteShowBalanceBook);
         }
 
         #endregion
@@ -77,6 +77,14 @@ namespace IpmUI.ViewModels
             }
         }
 
+        public Account Model
+        {
+            get
+            {
+                return this.model;
+            }
+        }
+
         #endregion
 
         #region Public Methods and Operators
@@ -103,9 +111,17 @@ namespace IpmUI.ViewModels
 
         #region Methods
 
-        private void ExecuteShowBalanceBook()
+        private void ExecuteShowBalanceBook(int? accountId)
         {
-            this.regionManager.RequestNavigate(RegionNames.AccountDetailsRegion, ViewNames.AccountBalanceBookView);
+            var parameters = new NavigationParameters
+                                 {
+                                     { "AccountId", accountId }
+                                 };
+
+            this.regionManager.RequestNavigate(
+                RegionNames.AccountDetailsRegion,
+                ViewNames.AccountBalanceBookView,
+                parameters);
         }
 
         private void SetModel(int accountId)
