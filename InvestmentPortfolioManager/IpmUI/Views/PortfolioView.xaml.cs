@@ -1,35 +1,25 @@
 ﻿// --------------------------------------------------------------------------------
-// <copyright file="HomeView.xaml.cs" company="Alex Kozlov">
+// <copyright file="PortfolioView.xaml.cs" company="Alex Kozlov">
 //   Copyright (c) Alex Kozlov. All rights reserved.
 // </copyright>
 // <summary>
-//   Interaction logic for HomeView.xaml.
+//   Interaction logic for PortfolioSummaryView.xaml.
 // </summary>
 // --------------------------------------------------------------------------------
 namespace IpmUI.Views
 {
-    using System.Windows;
     using System.Windows.Controls;
 
     /// <summary>
-    /// Interaction logic for HomeView.
+    /// Interaction logic for PortfolioSummaryView.
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class PortfolioView : UserControl
     {
         #region Constructors and Destructors
 
-        public HomeView()
+        public PortfolioView()
         {
             this.InitializeComponent();
-        }
-
-        #endregion
-
-        #region Methods
-
-        private void CreateNewPortfolioButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            this.NewPortfolioName.Focus();
         }
 
         #endregion

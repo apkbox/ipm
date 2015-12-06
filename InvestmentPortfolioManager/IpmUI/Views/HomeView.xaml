@@ -1,43 +1,79 @@
 ﻿<UserControl x:Class="IpmUI.Views.HomeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mvvm="http://prismlibrary.com/"
+             xmlns:viewModels="clr-namespace:IpmUI.ViewModels"
+             xmlns:converters="clr-namespace:IpmUI.Converters"
+             mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="800"
-             d:DataContext="{d:DesignData /SampleData/HomeViewSampleData/HomeViewSampleData.xaml}">
+             d:DataContext="{d:DesignInstance viewModels:HomeViewModel, IsDesignTimeCreatable=False}"
+             mvvm:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="TrueToCollapsedConverter" TrueValue="Collapsed" FalseValue="Visible" />
+        <converters:BoolToVisibilityConverter x:Key="FalseToCollapsedConverter" TrueValue="Visible" FalseValue="Collapsed" />
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
+
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                   FontSize="48" Margin="0,20">Investment Portfolio Manager</TextBlock>
-        <StackPanel Orientation="Vertical" Grid.Row="1" MinWidth="300"
-		        		HorizontalAlignment="Center"
-        		VerticalAlignment="Center">
-        
-        	<ItemsControl ItemsSource="{Binding Profiles}">
-        		<ItemsControl.ItemTemplate>
-        			<DataTemplate>
-        				<Button Content="{Binding Name}" Margin="4,2,2,4" Padding="1,4" FontSize="24"/>
-        			</DataTemplate>
-        		</ItemsControl.ItemTemplate>
-        	</ItemsControl>
-        	<Button Content="Create new portfolio..." Margin="4,20,2,4" Padding="1,4" FontSize="24"/>
-			<Grid Margin="0,20,0,0">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="*"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				
-				<TextBox FontSize="24" />
-				<StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="0,10,0,0">
-					<Button Content="Create" Padding="10,4" FontSize="24" Margin="0,0,10,0" />
-					<Button Content="Cancel" Padding="10,4" FontSize="24" />
-				</StackPanel>
-			</Grid>
+                   FontSize="48" Margin="0,20">
+            Investment Portfolio Manager
+        </TextBlock>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" MinWidth="300" MaxWidth="600"
+                      Margin="0,20,0,0"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Bottom">
+            <ItemsControl ItemsSource="{Binding Portfolios}"
+                          IsTabStop="False">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding Name}" 
+                                Command="{Binding DataContext.OpenPortfolioCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}"
+                                CommandParameter="{Binding Model.PortfolioId}"
+                                Margin="4,2,2,4" Padding="1,4" FontSize="24"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" MinWidth="300" MaxWidth="600">
+            <ToggleButton x:Name="CreateNewPortfolioButton" Content="Create new portfolio..."
+                          Margin="4,20,2,4" Padding="1,4" FontSize="24"
+                          IsChecked="{Binding IsCreatingPortfolio}"
+                          Click="CreateNewPortfolioButton_OnClick"
+                          Visibility="{Binding IsCreatingPortfolio, Converter={StaticResource TrueToCollapsedConverter}}"/>
+
+            <Grid Margin="0,20,0,0"
+                  Visibility="{Binding IsCreatingPortfolio, Converter={StaticResource FalseToCollapsedConverter}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label FontSize="20" Content="Portfolio name"/>
+                <TextBox x:Name="NewPortfolioName" Grid.Row="1" FontSize="24"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="2"
+                            HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <Button Content="Create" Padding="10,4" FontSize="24" Margin="0,0,10,0"
+                            IsDefault="True"
+                            Command="{Binding CreateNewPortfolioCommand}"
+                            CommandParameter="{Binding Text, ElementName=NewPortfolioName}"/>
+                    <Button Content="Cancel" Padding="10,4" FontSize="24"
+                            IsCancel="True"
+                            Command="{Binding CancelPortfolioCreationCommand}"/>
+                </StackPanel>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

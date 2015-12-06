@@ -11,23 +11,23 @@ namespace Ipm.Model
     using System;
     using System.Data.Entity;
 
-    public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<IpmModel>
+    public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<IpmEntityModel>
     {
         #region Methods
 
-        protected void SeedImpl(IpmModel context)
+        protected void SeedImpl(IpmEntityModel context)
         {
-            var accountModel = new AccountModel
+            var accountModel = new Account
                                    {
                                        Name = "TFSA", 
                                        Description = "TD TFSA Account CAD", 
                                        Currency = "CAD", 
                                    };
 
-            var portfolio = new PortfolioModel();
+            var portfolio = new Portfolio();
             portfolio.Accounts.Add(accountModel);
 
-            var cashTransaction = new CashTransactionModel
+            var cashTransaction = new CashTransaction
                                       {
                                           TransactionDate = DateTime.Parse("2015/03/06"), 
                                           Description = "Contribution", 
@@ -53,7 +53,7 @@ namespace Ipm.Model
                 30, 
                 (decimal)9.95);
 
-            cashTransaction = new CashTransactionModel
+            cashTransaction = new CashTransaction
                                   {
                                       TransactionDate = DateTime.Parse("2015/03/12"), 
                                       Description =
@@ -62,7 +62,7 @@ namespace Ipm.Model
                                   };
             accountModel.CashTransactions.Add(cashTransaction);
 
-            cashTransaction = new CashTransactionModel
+            cashTransaction = new CashTransaction
                                   {
                                       TransactionDate = DateTime.Parse("2015/03/12"), 
                                       Description =
@@ -71,7 +71,7 @@ namespace Ipm.Model
                                   };
             accountModel.CashTransactions.Add(cashTransaction);
 
-            cashTransaction = new CashTransactionModel
+            cashTransaction = new CashTransaction
                                   {
                                       TransactionDate = DateTime.Parse("2015/04/07"), 
                                       Description =
@@ -85,7 +85,7 @@ namespace Ipm.Model
         }
 
         private void CreateBuyTransaction(
-            AccountModel account, 
+            Account account, 
             DateTime transactionDate, 
             string tickerSymbol, 
             string description, 
@@ -95,14 +95,14 @@ namespace Ipm.Model
         {
             var total = (price * quantity) + comission;
 
-            var cashTransaction = new CashTransactionModel
+            var cashTransaction = new CashTransaction
                                       {
                                           TransactionDate = transactionDate, 
                                           Description = description, 
                                           Amount = -total
                                       };
 
-            var assetTransaction = new AssetTransactionModel
+            var assetTransaction = new AssetTransaction
                                        {
                                            TransactionType = TransactionType.BuySell, 
                                            TransactionDate = transactionDate, 
@@ -120,20 +120,20 @@ namespace Ipm.Model
         }
 
         private void CreateDividendTransaction(
-            AccountModel account, 
+            Account account, 
             DateTime transactionDate, 
             string tickerSymbol, 
             string description, 
             decimal amount)
         {
-            var cashTransaction = new CashTransactionModel
+            var cashTransaction = new CashTransaction
                                       {
                                           TransactionDate = transactionDate, 
                                           Description = description, 
                                           Amount = amount
                                       };
 
-            var assetTransaction = new AssetTransactionModel
+            var assetTransaction = new AssetTransaction
                                        {
                                            TransactionType = TransactionType.Dividend, 
                                            TransactionDate = transactionDate, 

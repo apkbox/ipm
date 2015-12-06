@@ -12,7 +12,7 @@ namespace Ipm.Model
     {
         #region Public Properties
 
-        public AccountModel Account { get; set; }
+        public Account Account { get; set; }
 
         public int Id { get; set; }
 

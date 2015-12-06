@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="IpmUI.Views.NewAccountPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:IpmUI.ViewModels"
+             xmlns:converters="clr-namespace:IpmUI.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="200" d:DesignWidth="750"
+             d:DataContext="{d:DesignInstance vm:NewAccountEntryViewModel, IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="TrueToCollapsedConverter" TrueValue="Collapsed"
+                                              FalseValue="Visible" />
+        <converters:BoolToVisibilityConverter x:Key="FalseToCollapsedConverter" TrueValue="Visible"
+                                              FalseValue="Collapsed" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid Visibility="{Binding IsCreatingAccount, Converter={StaticResource TrueToCollapsedConverter}}">
+            <ToggleButton IsChecked="{Binding IsCreatingAccount}"
+                          Padding="30">
+                Create new account...
+            </ToggleButton>
+        </Grid>
+        <Grid Visibility="{Binding IsCreatingAccount, Converter={StaticResource FalseToCollapsedConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="111*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="149*" />
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="449*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3">
+                <Label>Account name</Label>
+                <TextBox Text="{Binding Name}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="5">
+                <Label>Description</Label>
+                <TextBox Text="{Binding Description}" />
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="1">
+                <Label>Currency</Label>
+                <TextBox Text="{Binding Currency}" />
+            </StackPanel>
+            <StackPanel Grid.Row="3" Grid.Column="3">
+                <Label>Current balance</Label>
+                <TextBox Text="{Binding StartingCashBalance}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="5" HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom">
+                <Button Command="{Binding CreateAccountCommand}" Padding="10,5">Create</Button>
+                <Button Command="{Binding CancelAccountCreationCommand}" Margin="10,0,0,0" Padding="10,5">Cancel</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

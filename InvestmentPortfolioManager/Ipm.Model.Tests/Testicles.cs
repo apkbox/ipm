@@ -17,7 +17,7 @@ namespace Ipm.Model.Tests
     {
         #region Fields
 
-        private IpmModel model;
+        private IpmEntityModel entityModel;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace Ipm.Model.Tests
         [Test]
         public void CreatePortfolioMethod()
         {
-            var pf = this.model.Portfolios.Add(new PortfolioModel() { Name = "Test Portfolio" });
+            var pf = this.entityModel.Portfolios.Add(new Portfolio() { Name = "Test Portfolio" });
             Assert.IsNotNull(pf);
             Assert.AreEqual(pf.Name, "Test Portfolio");
         }
@@ -34,17 +34,17 @@ namespace Ipm.Model.Tests
         [SetUp]
         public void SetUp()
         {
-            this.model = new IpmModel();
-            Assert.IsNotNull(this.model);
-            this.model.Database.Log = Console.Write;
+            this.entityModel = new IpmEntityModel();
+            Assert.IsNotNull(this.entityModel);
+            this.entityModel.Database.Log = Console.Write;
         }
 
         [TearDown]
         public void TearDown()
         {
-            if (this.model != null)
+            if (this.entityModel != null)
             {
-                this.model.Dispose();
+                this.entityModel.Dispose();
             }
         }
 

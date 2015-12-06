@@ -22,7 +22,7 @@ namespace Ipm.Model
 
         public int Id { get; set; }
 
-        public virtual PortfolioModel Portfolio { get; set; }
+        public virtual Portfolio Portfolio { get; set; }
 
         #endregion
     }

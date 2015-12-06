@@ -12,7 +12,7 @@ namespace Ipm.Model
 
     using Prism.Modularity;
 
-    [Module(ModuleName = "Models")]
+    [Module(ModuleName = "IpmModel")]
     public class Module : IModule
     {
         #region Fields
@@ -34,7 +34,7 @@ namespace Ipm.Model
 
         public void Initialize()
         {
-            this.unityContainer.RegisterType<PortfolioModel>();
+            this.unityContainer.RegisterType<IpmEntityModel>(new PerThreadLifetimeManager());
         }
 
         #endregion
