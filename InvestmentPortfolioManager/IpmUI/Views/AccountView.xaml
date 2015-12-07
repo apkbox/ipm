@@ -55,8 +55,9 @@
             <Button Grid.Row="2">Cash transactions</Button>
             <Button Grid.Row="4">Asset transactions</Button>
 
-            <Button Grid.Row="6">Buy/Sell assets...</Button>
-            <Button Grid.Row="8">Other transactions...</Button>
+            <Button Grid.Row="6"
+                    Command="{Binding CreateNewTransactionCommand}"
+                    CommandParameter="{Binding Model.Id}">Create transaction...</Button>
         </Grid>
 
         <ContentControl mvvm:RegionManager.RegionName="{x:Static ipmUi:RegionNames.AccountDetailsRegion}"

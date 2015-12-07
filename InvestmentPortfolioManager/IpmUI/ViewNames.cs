@@ -18,6 +18,8 @@ namespace IpmUI
 
         public static readonly string HomeView = "HomeView";
 
+        public static readonly string NewTransactionView = "NewTransactionView";
+
         public static readonly string PortfolioView = "PortfolioSummaryView";
 
         #endregion

@@ -47,6 +47,9 @@ namespace IpmUI
             this.RegisterView<AccountBalanceBookView>(
                 ViewNames.AccountBalanceBookView, 
                 RegionNames.AccountDetailsRegion);
+            this.RegisterView<NewTransactionView>(
+                ViewNames.NewTransactionView, 
+                RegionNames.AccountDetailsRegion);
         }
 
         #endregion

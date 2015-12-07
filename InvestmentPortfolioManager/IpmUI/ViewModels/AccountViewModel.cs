@@ -26,6 +26,8 @@ namespace IpmUI.ViewModels
 
         private readonly DelegateCommand<int?> showBalanceBookCommand;
 
+        private DelegateCommand<int?> createNewTransactionCommand;
+
         private Account model;
 
         #endregion
@@ -37,11 +39,28 @@ namespace IpmUI.ViewModels
             this.entityModel = entityModel;
             this.regionManager = regionManager;
             this.showBalanceBookCommand = new DelegateCommand<int?>(this.ExecuteShowBalanceBook);
+            this.createNewTransactionCommand = new DelegateCommand<int?>(this.ExecuteCreateNewTransaction);
         }
 
         #endregion
 
         #region Public Properties
+
+        public ICommand CreateNewTransactionCommand
+        {
+            get
+            {
+                return this.createNewTransactionCommand;
+            }
+        }
+
+        public Account Model
+        {
+            get
+            {
+                return this.model;
+            }
+        }
 
         public string Name
         {
@@ -77,14 +96,6 @@ namespace IpmUI.ViewModels
             }
         }
 
-        public Account Model
-        {
-            get
-            {
-                return this.model;
-            }
-        }
-
         #endregion
 
         #region Public Methods and Operators
@@ -111,16 +122,21 @@ namespace IpmUI.ViewModels
 
         #region Methods
 
+        private void ExecuteCreateNewTransaction(int? accountId)
+        {
+            var parameters = new NavigationParameters { { "AccountId", accountId } };
+            this.regionManager.RequestNavigate(
+                RegionNames.AccountDetailsRegion, 
+                ViewNames.NewTransactionView, 
+                parameters);
+        }
+
         private void ExecuteShowBalanceBook(int? accountId)
         {
-            var parameters = new NavigationParameters
-                                 {
-                                     { "AccountId", accountId }
-                                 };
-
+            var parameters = new NavigationParameters { { "AccountId", accountId } };
             this.regionManager.RequestNavigate(
-                RegionNames.AccountDetailsRegion,
-                ViewNames.AccountBalanceBookView,
+                RegionNames.AccountDetailsRegion, 
+                ViewNames.AccountBalanceBookView, 
                 parameters);
         }
 
