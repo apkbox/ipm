@@ -36,6 +36,7 @@ namespace Ipm.Model
 
         public DateTime LastPriceTimestamp { get; set; }
 
+        //// TODO: What is it this for?
         public decimal Quantity { get; set; }
 
         public string Ticker { get; set; }

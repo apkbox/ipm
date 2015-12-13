@@ -26,7 +26,7 @@ namespace IpmUI.ViewModels
 
         private readonly DelegateCommand<int?> showBalanceBookCommand;
 
-        private DelegateCommand<int?> createNewTransactionCommand;
+        private readonly DelegateCommand<int?> createNewTransactionCommand;
 
         private Account model;
 

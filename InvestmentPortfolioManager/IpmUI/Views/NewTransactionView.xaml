@@ -5,11 +5,75 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:IpmUI.ViewModels"
              xmlns:mvvm="http://prismlibrary.com/"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:s="clr-namespace:System;assembly=mscorlib"
+             xmlns:controls="clr-namespace:IpmUI.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800"
+             d:DesignHeight="628" d:DesignWidth="799"
              d:DataContext="{d:DesignInstance vm:NewTransactionViewModel, IsDesignTimeCreatable=False}"
              mvvm:ViewModelLocator.AutoWireViewModel="True">
+    <UserControl.Resources>
+        <vm:TransactionUiTypeToStringDictionary x:Key="TransactionUiTypes">
+            <s:String x:Key="{x:Static vm:TransactionUiType.Deposit}">Deposit</s:String>
+            <s:String x:Key="{x:Static vm:TransactionUiType.Withdraw}">Withdraw</s:String>
+            <s:String x:Key="{x:Static vm:TransactionUiType.Buy}">Buy</s:String>
+            <s:String x:Key="{x:Static vm:TransactionUiType.Sell}">Sell</s:String>
+            <s:String x:Key="{x:Static vm:TransactionUiType.Dividend}">Dividend</s:String>
+        </vm:TransactionUiTypeToStringDictionary>
+
+        <DataTemplate x:Key="TransactionFormTemplate">
+            <ContentControl x:Name="Content"/>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding TransactionType}" Value="{x:Static vm:TransactionUiType.Deposit}">
+                    <Setter TargetName="Content" Property="Content">
+                        <Setter.Value>
+                            <GroupBox Header="Cash transaction" Margin="10" Padding="10">
+                                <controls:CashTransactionFormControl />
+                            </GroupBox>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TransactionType}" Value="{x:Static vm:TransactionUiType.Withdraw}">
+                    <Setter TargetName="Content" Property="Content">
+                        <Setter.Value>
+                            <GroupBox Header="Cash transaction" Margin="10" Padding="10">
+                                <controls:CashTransactionFormControl />
+                            </GroupBox>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TransactionType}" Value="{x:Static vm:TransactionUiType.Buy}">
+                    <Setter TargetName="Content" Property="Content">
+                        <Setter.Value>
+                            <StackPanel>
+                                <GroupBox Header="Asset transaction" Margin="10" Padding="10">
+                                    <controls:AssetTransactionFormControl/>
+                                </GroupBox>
+                                <GroupBox Header="Cash transaction" Margin="10" Padding="10">
+                                    <controls:CashTransactionFormControl/>
+                                </GroupBox>
+                            </StackPanel>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TransactionType}" Value="{x:Static vm:TransactionUiType.Sell}">
+                    <Setter TargetName="Content" Property="Content">
+                        <Setter.Value>
+                            <StackPanel>
+                                <GroupBox Header="Asset transaction" Margin="10">
+                                    <controls:AssetTransactionFormControl/>
+                                </GroupBox>
+                                <GroupBox Header="Cash transaction" Margin="10">
+                                    <controls:CashTransactionFormControl/>
+                                </GroupBox>
+                            </StackPanel>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,59 +82,19 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label Content="Transaction type" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="10,36,0,16" VerticalAlignment="Top" Width="120">
-            <ComboBox.Items>
-                <system:String>Buy</system:String>
-                <system:String>Sell</system:String>
-                <system:String>Dividend</system:String>
-                <system:String>Dividend Reinvested</system:String>
-                <system:String>Deposit</system:String>
-                <system:String>Withdraw</system:String>
-            </ComboBox.Items>
-        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="10,36,0,16" VerticalAlignment="Top" Width="120"
+                  ItemsSource="{StaticResource TransactionUiTypes}"
+                  SelectedValue="{Binding TransactionType}"
+                  SelectedValuePath="Key"
+                  DisplayMemberPath="Value" />
 
-        <GroupBox Header="Asset transaction" Grid.Row="1" Margin="10">
-            <Grid Margin="10">
-                <Label Content="Transaction date" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0"/>
-                <DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,26,0,0"/>
+        <ContentControl Grid.Row="1"
+                        Content="{Binding}"
+                        ContentTemplate="{StaticResource TransactionFormTemplate}"/>
 
-                <Label Content="Settlement date" HorizontalAlignment="Left" Margin="132,0,0,0" VerticalAlignment="Top"/>
-                <DatePicker HorizontalAlignment="Left" Margin="132,26,0,0" VerticalAlignment="Top"/>
-                <Label Content="Ticker symbol" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Width="142"/>
-                <Label Content="Asset name" HorizontalAlignment="Left" Margin="175,55,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="175,81,0,0" VerticalAlignment="Top" Width="354"/>
-                <Label Content="Description" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="354"/>
-                <Label Content="Comment" HorizontalAlignment="Left" Margin="386,108,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="386,134,0,0" VerticalAlignment="Top" Width="372"/>
-                <Label Content="Price" HorizontalAlignment="Left" Margin="100,161,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="100,187,0,0" VerticalAlignment="Top" Width="70"/>
-                <Label Content="Quantity" HorizontalAlignment="Left" Margin="10,161,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="10,187,0,0" VerticalAlignment="Top" Width="70"/>
-                <Label Content="Commission" HorizontalAlignment="Left" Margin="192,161,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="192,187,0,0" VerticalAlignment="Top" Width="70"/>
-                <Label Content="Amount" HorizontalAlignment="Left" Margin="287,161,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="287,187,0,0" VerticalAlignment="Top" Width="120"/>
-            </Grid>
-        </GroupBox>
-
-        <GroupBox Header="Cash transaction" Margin="10" Grid.Row="2">
-            <Grid VerticalAlignment="Top" Margin="10">
-                <Label Content="Transaction date" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                <DatePicker HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top"/>
-                <Label Content="Settlement date" HorizontalAlignment="Left" Margin="134,10,0,0" VerticalAlignment="Top"/>
-                <DatePicker HorizontalAlignment="Left" Margin="134,36,0,0" VerticalAlignment="Top"/>
-                <Label Content="Description" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="354"/>
-                <Label Content="Comment" HorizontalAlignment="Left" Margin="394,65,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="394,91,0,0" VerticalAlignment="Top" Width="364"/>
-                <Label Content="Amount" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="10,144,0,0" VerticalAlignment="Top" Width="120"/>
-            </Grid>
-        </GroupBox>
-
-        <Button Content="Save" Margin="0,10,90,10" VerticalAlignment="Top" Grid.Row="3" HorizontalAlignment="Right" Width="75"/>
-        <Button Content="Cancel" Margin="0,10,10,10" VerticalAlignment="Top" Grid.Row="3" HorizontalAlignment="Right" Width="75"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Command="{Binding SaveCommand}" Content="Save" Margin="0,10,0,10" Width="75"/>
+            <Button Content="Cancel" Margin="10,10,10,10" Width="75"/>
+        </StackPanel>
     </Grid>
 </UserControl>

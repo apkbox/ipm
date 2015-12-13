@@ -92,6 +92,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Controls\AssetTransactionFormControl.xaml.cs">
+      <DependentUpon>AssetTransactionFormControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CashTransactionFormControl.xaml.cs">
+      <DependentUpon>CashTransactionFormControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="RegionNames.cs" />
@@ -105,6 +111,8 @@
     <Compile Include="ViewModels\PortfolioEntryViewModel.cs" />
     <Compile Include="ViewModels\PortfolioViewModel.cs" />
     <Compile Include="ViewModels\SideBySideTransactionViewModel.cs" />
+    <Compile Include="ViewModels\TransactionUiType.cs" />
+    <Compile Include="ViewModels\TransactionUiTypeToStringDictionary.cs" />
     <Compile Include="ViewNames.cs" />
     <Compile Include="Views\AccountView.xaml.cs">
       <DependentUpon>AccountView.xaml</DependentUpon>
@@ -130,6 +138,14 @@
     <Compile Include="Views\PortfolioView.xaml.cs">
       <DependentUpon>PortfolioView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\AssetTransactionFormControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CashTransactionFormControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

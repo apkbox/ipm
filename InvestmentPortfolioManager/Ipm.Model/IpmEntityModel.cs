@@ -47,6 +47,8 @@ namespace Ipm.Model
 
         public virtual DbSet<Portfolio> Portfolios { get; set; }
 
+        public virtual DbSet<Asset> Assets { get; set; }
+
         #endregion
 
         #region Public Methods and Operators

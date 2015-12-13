@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="IpmUI.Controls.AssetTransactionFormControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:IpmUI.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance vm:NewTransactionViewModel, IsDesignTimeCreatable=False}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <StackPanel HorizontalAlignment="Left">
+                <Label Content="Transaction date" HorizontalAlignment="Left"/>
+                <DatePicker SelectedDate="{Binding AssetTransactionDate}"/>
+            </StackPanel>
+            <StackPanel Margin="20,0,0,0" HorizontalAlignment="Left">
+                <Label Content="Settlement date"/>
+                <DatePicker SelectedDate="{Binding AssetSettlementDate}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left">
+            <StackPanel HorizontalAlignment="Left">
+                <Label Content="Ticker symbol"/>
+                <TextBox Text="{Binding AssetTickerSymbol}" Width="142"/>
+            </StackPanel>
+            <StackPanel Margin="20,0,0,0" HorizontalAlignment="Left">
+                <Label Content="Asset name"/>
+                <TextBox Text="{Binding AssetName}" Width="354"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+            <StackPanel HorizontalAlignment="Left">
+                <Label Content="Description"/>
+                <TextBox Text="{Binding AssetTransactionDescription}" Width="354"/>
+            </StackPanel>
+            <StackPanel Margin="20,0,0,0" HorizontalAlignment="Left">
+                <Label Content="Comment"/>
+                <TextBox Text="{Binding AssetTransactionComment}"  Width="364"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left">
+            <StackPanel HorizontalAlignment="Left">
+                <Label Content="Price"/>
+                <TextBox Text="{Binding AssetPrice}" Width="70"/>
+            </StackPanel>
+            <StackPanel Margin="20,0,0,0" HorizontalAlignment="Left">
+                <Label Content="Quantity"/>
+                <TextBox Text="{Binding AssetQuantity}" Width="70"/>
+            </StackPanel>
+            <StackPanel Margin="20,0,0,0" HorizontalAlignment="Left">
+                <Label Content="Commission"/>
+                <TextBox Text="{Binding AssetTransactionCommission}" Width="70"/>
+            </StackPanel>
+            <StackPanel Margin="20,0,0,0" HorizontalAlignment="Left">
+                <Label Content="Amount"/>
+                <TextBox Text="{Binding AssetTransactionAmount}" Width="120"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
